@@ -7,19 +7,22 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei',sans-serif;font-size:13px;background:#f0f2f5;color:#333}
-/* Layout */
 .layout{display:flex;height:100vh;overflow:hidden}
-.sidebar{width:220px;min-width:220px;background:#001529;display:flex;flex-direction:column;overflow-y:auto;transition:width .2s}
-.sidebar-logo{padding:16px 20px;color:#fff;font-size:15px;font-weight:700;border-bottom:1px solid rgba(255,255,255,.1);white-space:nowrap;overflow:hidden}
-.sidebar-logo span{font-size:11px;opacity:.6;display:block;margin-top:2px;font-weight:400}
-.sidebar-menu{flex:1;padding:8px 0}
-.menu-item{display:flex;align-items:center;padding:11px 20px;color:rgba(255,255,255,.65);cursor:pointer;transition:all .2s;border-left:3px solid transparent;gap:10px;font-size:13px}
-.menu-item:hover{color:#fff;background:rgba(255,255,255,.06)}
-.menu-item.active{color:#1890ff;background:rgba(24,144,255,.15);border-left-color:#1890ff}
-.menu-item .icon{font-size:15px;width:16px;text-align:center}
+/* Sidebar */
+.sidebar{width:220px;min-width:220px;background:#001529;display:flex;flex-direction:column;overflow-y:auto}
+.sidebar-logo{padding:14px 16px;color:#fff;font-size:15px;font-weight:700;border-bottom:1px solid rgba(255,255,255,.1);white-space:nowrap}
+.sidebar-logo span{font-size:11px;opacity:.5;display:block;margin-top:2px;font-weight:400}
+.menu-sys-header{padding:16px 16px 4px;font-size:11px;color:rgba(255,255,255,.35);letter-spacing:1px;font-weight:600;text-transform:uppercase}
+.menu-l1{padding:6px 16px 4px 16px;font-size:12px;color:rgba(255,255,255,.45);display:flex;align-items:center;gap:6px;margin-top:4px}
+.menu-l1 .l1-icon{font-size:13px}
+.menu-l2{padding:8px 12px 8px 38px;font-size:13px;color:rgba(255,255,255,.65);cursor:pointer;border-left:3px solid transparent;transition:all .15s}
+.menu-l2:hover{color:#fff;background:rgba(255,255,255,.06)}
+.menu-l2.active{color:#1890ff;background:rgba(24,144,255,.15);border-left-color:#1890ff}
+.menu-divider{border:none;border-top:1px solid rgba(255,255,255,.08);margin:8px 0}
+/* Main */
 .main{flex:1;display:flex;flex-direction:column;overflow:hidden}
-.topbar{height:48px;background:#fff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;padding:0 20px;gap:8px;color:#999;font-size:12px;flex-shrink:0}
-.topbar .sep{margin:0 4px}
+.topbar{height:44px;background:#fff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;padding:0 20px;gap:6px;color:#999;font-size:12px;flex-shrink:0}
+.topbar .sep{margin:0 2px}
 .topbar .cur{color:#333}
 .content{flex:1;overflow-y:auto;padding:16px 20px}
 /* Cards */
@@ -28,25 +31,25 @@ body{font-family:-apple-system,BlinkMacSystemFont,'PingFang SC','Microsoft YaHei
 .card-title{font-size:14px;font-weight:600;color:#333}
 .card-body{padding:16px}
 /* Tabs */
-.tabs{display:flex;border-bottom:2px solid #f0f0f0;margin-bottom:16px;gap:0}
-.tab{padding:8px 16px;cursor:pointer;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px;font-size:13px;transition:all .2s;white-space:nowrap}
+.tabs{display:flex;border-bottom:2px solid #f0f0f0;margin-bottom:16px}
+.tab{padding:8px 14px;cursor:pointer;color:#666;border-bottom:2px solid transparent;margin-bottom:-2px;font-size:13px;transition:all .15s;white-space:nowrap}
 .tab:hover{color:#1890ff}
 .tab.active{color:#1890ff;border-bottom-color:#1890ff;font-weight:500}
 .tab .badge{background:#ff4d4f;color:#fff;border-radius:10px;padding:1px 6px;font-size:11px;margin-left:4px}
 /* Status tabs pill */
 .status-tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
-.stab{padding:4px 12px;border-radius:16px;border:1px solid #d9d9d9;cursor:pointer;font-size:12px;color:#666;transition:all .2s}
+.stab{padding:4px 12px;border-radius:16px;border:1px solid #d9d9d9;cursor:pointer;font-size:12px;color:#666;transition:all .15s}
 .stab:hover{border-color:#1890ff;color:#1890ff}
 .stab.active{background:#1890ff;border-color:#1890ff;color:#fff}
 /* Filter bar */
 .filter-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}
 .filter-item{display:flex;align-items:center;gap:6px;font-size:12px;color:#666}
 .filter-item label{white-space:nowrap}
-.inp{border:1px solid #d9d9d9;border-radius:3px;padding:4px 8px;font-size:12px;outline:none;color:#333;min-width:120px}
+.inp{border:1px solid #d9d9d9;border-radius:3px;padding:4px 8px;font-size:12px;outline:none;color:#333;min-width:110px}
 .inp:focus{border-color:#1890ff}
 .sel{border:1px solid #d9d9d9;border-radius:3px;padding:4px 8px;font-size:12px;outline:none;color:#333;background:#fff;min-width:110px}
 /* Buttons */
-.btn{display:inline-flex;align-items:center;gap:4px;padding:5px 14px;border-radius:3px;border:1px solid;cursor:pointer;font-size:12px;transition:all .2s;white-space:nowrap}
+.btn{display:inline-flex;align-items:center;gap:4px;padding:5px 14px;border-radius:3px;border:1px solid;cursor:pointer;font-size:12px;transition:all .15s;white-space:nowrap}
 .btn-primary{background:#1890ff;border-color:#1890ff;color:#fff}
 .btn-primary:hover{background:#40a9ff;border-color:#40a9ff}
 .btn-default{background:#fff;border-color:#d9d9d9;color:#333}
@@ -63,7 +66,7 @@ th,td{padding:9px 12px;text-align:left;border-bottom:1px solid #f0f0f0;white-spa
 th{background:#fafafa;color:#666;font-weight:500}
 tr:hover td{background:#fafffe}
 .check-col{width:36px;text-align:center}
-/* Status badges */
+/* Tags */
 .tag{display:inline-block;padding:2px 8px;border-radius:3px;font-size:11px;font-weight:500}
 .tag-blue{background:#e6f7ff;color:#1890ff;border:1px solid #91d5ff}
 .tag-green{background:#f6ffed;color:#52c41a;border:1px solid #b7eb8f}
@@ -72,15 +75,23 @@ tr:hover td{background:#fafffe}
 .tag-gray{background:#f5f5f5;color:#8c8c8c;border:1px solid #d9d9d9}
 .tag-purple{background:#f9f0ff;color:#722ed1;border:1px solid #d3adf7}
 .tag-cyan{background:#e6fffb;color:#13c2c2;border:1px solid #87e8de}
-/* Modal overlay */
+/* Modal */
 .modal-mask{position:fixed;inset:0;background:rgba(0,0,0,.45);z-index:1000;display:flex;align-items:center;justify-content:center}
-.modal{background:#fff;border-radius:6px;box-shadow:0 8px 32px rgba(0,0,0,.2);min-width:480px;max-width:800px;width:90vw;max-height:85vh;display:flex;flex-direction:column}
+.modal{background:#fff;border-radius:6px;box-shadow:0 8px 32px rgba(0,0,0,.2);min-width:480px;max-width:860px;width:90vw;max-height:88vh;display:flex;flex-direction:column}
 .modal-header{padding:14px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .modal-title{font-size:15px;font-weight:600}
 .modal-close{cursor:pointer;color:#999;font-size:18px;line-height:1}
 .modal-close:hover{color:#333}
 .modal-body{padding:20px;overflow-y:auto;flex:1}
 .modal-footer{padding:12px 20px;border-top:1px solid #f0f0f0;display:flex;justify-content:flex-end;gap:8px;flex-shrink:0}
+/* Full-screen detail overlay (simulates new window) */
+.detail-overlay{position:fixed;inset:0;background:#f0f2f5;z-index:800;overflow-y:auto;display:flex;flex-direction:column}
+.detail-overlay-bar{height:44px;background:#fff;border-bottom:1px solid #e8e8e8;display:flex;align-items:center;padding:0 20px;gap:8px;flex-shrink:0}
+.detail-overlay-content{flex:1;padding:16px 20px;overflow-y:auto}
+/* Lightbox */
+.lightbox-mask{position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:2000;display:flex;align-items:center;justify-content:center;cursor:zoom-out}
+.lightbox-inner{position:relative;max-width:88vw;max-height:90vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border-radius:6px;overflow:hidden;min-width:400px;min-height:300px}
+.lightbox-close-btn{position:absolute;top:10px;right:14px;color:#fff;background:rgba(0,0,0,.5);border:none;border-radius:50%;width:28px;height:28px;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:1}
 /* Form */
 .form-row{display:flex;flex-wrap:wrap;gap:0 24px;margin-bottom:14px}
 .form-item{display:flex;align-items:flex-start;min-width:240px;flex:1;margin-bottom:12px}
@@ -91,19 +102,21 @@ tr:hover td{background:#fafffe}
 .form-control .inp,.form-control .sel{width:100%}
 .form-note{font-size:11px;color:#999;margin-top:3px}
 /* Info grid */
-.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px 24px;margin-bottom:16px}
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px 24px;margin-bottom:16px}
 .info-item{font-size:12px}
+.info-item.full{grid-column:1/-1}
 .info-label{color:#999;margin-bottom:2px}
 .info-value{color:#333;font-weight:500}
-/* Upload area */
+/* Upload */
 .upload-area{border:1px dashed #d9d9d9;border-radius:4px;padding:20px;text-align:center;cursor:pointer;transition:.2s;background:#fafafa}
 .upload-area:hover{border-color:#1890ff;background:#f0f8ff}
 .upload-icon{font-size:28px;color:#1890ff;margin-bottom:8px}
 .upload-hint{font-size:11px;color:#999;margin-top:4px}
 .file-list{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
-.file-item{display:flex;align-items:center;gap:6px;padding:4px 10px;background:#f5f5f5;border-radius:3px;font-size:11px;color:#666}
+.file-link{display:inline-flex;align-items:center;padding:4px 10px;background:#f5f5f5;border-radius:3px;font-size:12px;color:#1890ff;cursor:pointer;text-decoration:none;border:1px solid #e8e8e8}
+.file-link:hover{background:#e6f7ff;border-color:#91d5ff}
 /* Steps */
-.steps{display:flex;margin-bottom:20px;gap:0}
+.steps{display:flex;margin-bottom:20px}
 .step{display:flex;align-items:center;flex:1}
 .step-dot{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;flex-shrink:0}
 .step-dot.done{background:#1890ff;color:#fff}
@@ -111,10 +124,6 @@ tr:hover td{background:#fafffe}
 .step-dot.pending{background:#f5f5f5;border:2px solid #d9d9d9;color:#999}
 .step-line{flex:1;height:2px;background:#d9d9d9;margin:0 8px}
 .step-line.done{background:#1890ff}
-.step-info{margin-left:8px}
-.step-title{font-size:12px;font-weight:500;color:#333}
-.step-title.active{color:#1890ff}
-.step-title.pending{color:#999}
 /* Approval timeline */
 .approval-flow{padding:4px 0}
 .flow-node{display:flex;gap:12px;margin-bottom:0}
@@ -130,202 +139,96 @@ tr:hover td{background:#fafffe}
 .flow-role{font-size:11px;color:#999}
 .flow-time{font-size:11px;color:#999;margin-top:2px}
 .flow-result{margin-top:4px}
-/* Section divider */
+/* Section */
 .section-title{font-size:13px;font-weight:600;color:#333;margin-bottom:10px;padding-left:8px;border-left:3px solid #1890ff}
-/* Version log */
-.version-block{margin-bottom:24px}
-.version-tag{display:inline-block;background:#1890ff;color:#fff;border-radius:3px;padding:3px 10px;font-size:13px;font-weight:600;margin-bottom:10px}
-.version-date{color:#999;font-size:12px;margin-left:10px}
-.change-list{list-style:none;padding:0}
-.change-list li{display:flex;gap:8px;align-items:flex-start;padding:5px 0;border-bottom:1px solid #f5f5f5;font-size:12px}
-.change-list li:last-child{border-bottom:none}
-.change-type{display:inline-block;padding:1px 6px;border-radius:3px;font-size:11px;flex-shrink:0;margin-top:1px}
-.ct-fix{background:#fff1f0;color:#ff4d4f}
-.ct-new{background:#f6ffed;color:#52c41a}
-.ct-update{background:#e6f7ff;color:#1890ff}
-/* PRD section */
-.prd-card{background:#fff;border:1px solid #e8e8e8;border-radius:6px;padding:16px;margin-bottom:12px}
-.prd-card h4{font-size:14px;font-weight:600;color:#333;margin-bottom:8px}
-.prd-card p{font-size:12px;color:#666;line-height:1.7;margin-bottom:6px}
-.field-dict table{width:100%}
-/* Amount */
-.amount{color:#f5222d;font-weight:600}
-/* H5 phone frame */
-.phone-frame{width:375px;height:680px;border:10px solid #222;border-radius:36px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative;margin:0 auto}
-.phone-screen{height:100%;overflow-y:auto;background:#f5f5f5}
-.h5-topbar{background:#1890ff;color:#fff;padding:12px 16px;display:flex;align-items:center;gap:10px;font-size:15px;font-weight:500}
-.h5-back{font-size:18px;cursor:pointer}
-.h5-list-item{background:#fff;margin:0 0 8px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between;cursor:pointer}
-.h5-list-item:active{background:#f5f5f5}
-.h5-user-block{background:#1890ff;padding:20px 16px 30px;color:#fff;text-align:center}
-.h5-avatar{width:56px;height:56px;border-radius:50%;background:rgba(255,255,255,.3);margin:0 auto 8px;display:flex;align-items:center;justify-content:center;font-size:22px}
-.h5-tabs{display:flex;background:#fff;border-bottom:1px solid #f0f0f0}
-.h5-tab{flex:1;text-align:center;padding:10px;font-size:13px;color:#666;border-bottom:2px solid transparent;cursor:pointer}
-.h5-tab.active{color:#1890ff;border-bottom-color:#1890ff;font-weight:500}
-.h5-approval-item{background:#fff;border-radius:4px;margin:8px;padding:14px;box-shadow:0 1px 4px rgba(0,0,0,.08)}
-.h5-approval-item h4{font-size:13px;margin-bottom:6px;color:#333}
-.h5-approval-item .meta{font-size:11px;color:#999}
-/* Voucher entry table */
-.entry-table th{background:#f0f7ff;color:#1890ff}
 /* Info block */
 .info-block{background:#f6f8fa;border-radius:4px;padding:10px 14px;margin-bottom:12px;font-size:12px}
-/* Separator */
 hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
 /* Alert */
 .alert{padding:8px 12px;border-radius:4px;font-size:12px;margin-bottom:12px;display:flex;align-items:flex-start;gap:8px}
 .alert-warning{background:#fffbe6;border:1px solid #ffe58f;color:#d46b08}
 .alert-info{background:#e6f7ff;border:1px solid #91d5ff;color:#0050b3}
 .alert-error{background:#fff1f0;border:1px solid #ffa39e;color:#cf1322}
+.alert-success{background:#f6ffed;border:1px solid #b7eb8f;color:#389e0d}
 /* Pagination */
 .pagination{display:flex;justify-content:flex-end;align-items:center;gap:6px;margin-top:12px;font-size:12px;color:#666}
 .page-btn{width:28px;height:28px;border:1px solid #d9d9d9;border-radius:3px;display:flex;align-items:center;justify-content:center;cursor:pointer}
 .page-btn.active{background:#1890ff;border-color:#1890ff;color:#fff}
 /* Summary bar */
 .summary-bar{background:#e6f7ff;border:1px solid #91d5ff;border-radius:3px;padding:8px 14px;font-size:12px;color:#0050b3;margin-bottom:10px;display:flex;gap:20px;align-items:center}
-/* Drawer-style panel */
+/* Panel slide */
 .panel-slide{position:fixed;right:0;top:0;bottom:0;width:720px;background:#fff;box-shadow:-4px 0 20px rgba(0,0,0,.15);z-index:500;display:flex;flex-direction:column}
 .panel-header{padding:14px 20px;border-bottom:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
 .panel-body{flex:1;overflow-y:auto;padding:20px}
 .panel-footer{padding:12px 20px;border-top:1px solid #f0f0f0;display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
-/* tooltip */
+/* Tooltip */
 .tooltip-btn{position:relative;cursor:pointer}
 .tooltip-btn:hover .tooltip-box{display:block}
-.tooltip-box{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#333;color:#fff;border-radius:3px;padding:5px 8px;font-size:11px;white-space:nowrap;z-index:999}
+.tooltip-box{display:none;position:absolute;bottom:calc(100% + 6px);left:50%;transform:translateX(-50%);background:#333;color:#fff;border-radius:3px;padding:5px 8px;font-size:11px;white-space:nowrap;z-index:999;max-width:300px;white-space:normal;min-width:160px}
 .tooltip-box::after{content:'';position:absolute;top:100%;left:50%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#333}
-/* Stats row */
+/* Amount */
+.amount{color:#f5222d;font-weight:600}
+/* Entry table */
+.entry-table th{background:#f0f7ff;color:#1890ff}
+/* Stats */
 .stats-row{display:flex;gap:12px;margin-bottom:16px}
 .stat-card{flex:1;background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:14px;text-align:center}
 .stat-num{font-size:22px;font-weight:700;color:#1890ff}
 .stat-label{font-size:11px;color:#999;margin-top:4px}
-/* Responsive */
-@media(max-width:768px){
-  .sidebar{display:none}
-  .form-item{flex:0 0 100%}
-}
+/* Reject reason row */
+.reject-reason-row td{background:#fff9f9}
+.reject-reason-cell{color:#cf1322;font-size:11px;max-width:220px;white-space:normal;line-height:1.4}
 </style>
 </head>
 <body>
 <div id="app">
   <div class="layout">
-    <!-- Sidebar -->
+    <!-- ====== Sidebar ====== -->
     <div class="sidebar">
       <div class="sidebar-logo">
-        <div>财务批量结算</div>
-        <span>产品设计原型 v1.1</span>
+        <div>唯普汽车</div>
+        <span>产品设计原型</span>
       </div>
-      <div class="sidebar-menu">
-        <div v-for="m in menus" :key="m.key" class="menu-item" :class="{active:activeMenu===m.key}" @click="navigate(m.key)">
-          <span class="icon">{{m.icon}}</span>
-          <span>{{m.label}}</span>
-        </div>
+      <div style="flex:1;padding-bottom:16px">
+        <!-- BMS -->
+        <div class="menu-sys-header">BMS</div>
+        <div class="menu-l1"><span class="l1-icon">📊</span>报销核算中心</div>
+        <div class="menu-l2" :class="{active:activeMenu==='bms'}" @click="navigate('bms')">批量结算</div>
+        <hr class="menu-divider">
+        <!-- FNC -->
+        <div class="menu-sys-header">FNC</div>
+        <div class="menu-l1"><span class="l1-icon">📊</span>报销核算中心</div>
+        <div class="menu-l2" :class="{active:activeMenu==='fnc-settle'}" @click="navigate('fnc-settle')">批量结算</div>
+        <div class="menu-l1" style="margin-top:8px"><span class="l1-icon">💼</span>财务管理</div>
+        <div class="menu-l2" :class="{active:activeMenu==='fnc-voucher'}" @click="navigate('fnc-voucher')">凭证管理</div>
+        <hr class="menu-divider">
+        <!-- Other -->
+        <div class="menu-sys-header">其他</div>
+        <div class="menu-l2" :class="{active:activeMenu==='approval'}" @click="navigate('approval')">审批流预览</div>
+        <div class="menu-l2" :class="{active:activeMenu==='dept-mapping'}" @click="navigate('dept-mapping')">后台—部门编码映射</div>
       </div>
     </div>
 
-    <!-- Main -->
+    <!-- ====== Main ====== -->
     <div class="main">
       <div class="topbar">
         <span>首页</span><span class="sep">/</span>
-        <span>{{currentMenu.group}}</span><span class="sep">/</span>
-        <span class="cur">{{currentMenu.label}}</span>
+        <span>{{currentBreadcrumb.group}}</span><span class="sep">/</span>
+        <span class="cur">{{currentBreadcrumb.label}}</span>
       </div>
       <div class="content">
-
-        <!-- ==================== 版本更新 ==================== -->
-        <div v-if="activeMenu==='version'">
-          <div class="card">
-            <div class="card-header"><span class="card-title">📋 版本更新日志</span></div>
-            <div class="card-body">
-              <div class="version-block">
-                <span class="version-tag" style="background:#722ed1">v1.2</span>
-                <span class="version-date">2026-04-09 &nbsp;部门编码方案确定后更新</span>
-                <ul class="change-list" style="margin-top:10px">
-                  <li><span class="change-type ct-fix">确认</span><div><b>【P2已关闭】整理费部门编码采用方案二</b>：U8无可用部门查询接口，改由系统管理员在FNC后台维护"结算机构 → U8部门编码"映射表，生成凭证时系统按结算机构自动带入部门编码，财务可手动修改，未填写不允许确认（PRD2 §4.4方案二 / 新增页"后台—部门编码映射"）</div></li>
-                  <li><span class="change-type ct-new">新增</span><div><b>FNC后台：结算机构→部门编码映射配置页</b>：管理员可增删改查映射关系，使用实际U8部门编码（如：7402=车客主文事业部（番禺）、7403=天河、7404=越秀），供凭证预览自动带入</div></li>
-                  <li><span class="change-type ct-update">调整</span><div><b>凭证分录预览新增"部门编码"列</b>：整理费行自动带入对应部门编码（橙色底，可手改，必填）；服务费/过户费行显示"—"</div></li>
-                  <li><span class="change-type ct-new">新增</span><div><b>"手动回填凭证号"弹窗</b>：开具超时时财务在U8核查后可直接回填凭证号，状态变"已开具"，防止重试产生重复凭证（PRD2 §5.5.4）</div></li>
-                </ul>
-              </div>
-              <div class="version-block">
-                <span class="version-tag">v1.1</span>
-                <span class="version-date">2026-04-09 &nbsp;跨PRD冲突评审后更新</span>
-                <ul class="change-list" style="margin-top:10px">
-                  <li><span class="change-type ct-fix">修复</span><div><b>【高危】付款金额改为只读</b>：原允许手改导致U8凭证借贷不平，现改为自动等于明细合计，不可修改（PRD1 §5.1.2）</div></li>
-                  <li><span class="change-type ct-fix">修复</span><div><b>字段命名统一</b>：PRD1"收款方名称"与PRD2"收款单位"为同一字段，统一为"收款方名称"，取消单独"收款单位"字段避免重复录入（PRD2 §4.5.1）</div></li>
-                  <li><span class="change-type ct-fix">修复</span><div><b>查重规则修正</b>：导入对账单查重从"合作方+年月+VIN"改为"合作方+年月+VIN+<b>费用项目</b>"，防止同车同月不同费用被误判重复（PRD1 §5.6.5）</div></li>
-                  <li><span class="change-type ct-new">新增</span><div><b>财务打回流程</b>：待支付申请财务可从FNC发起"打回"，BMS退回已驳回状态，底层明细释放，申请人收到通知（PRD1 §5.3.3 / PRD2 §5.6）</div></li>
-                  <li><span class="change-type ct-new">新增</span><div><b>开具超时状态</b>：U8接口超时时状态变"开具超时"，提供"手动回填凭证号"和"确认未开后重试"两个操作，防止重复凭证（PRD2 §5.5.4）</div></li>
-                  <li><span class="change-type ct-new">新增</span><div><b>同收款方约束</b>：FNC多选BMS申请合并凭证时，强制要求收款方相同，否则阻断（PRD2 §5.2.1）</div></li>
-                  <li><span class="change-type ct-update">调整</span><div><b>PDF不含原始发票</b>：导出PDF仅含表单文字，发票文件改为"打包下载ZIP"，防止浏览器OOM崩溃（PRD1 §5.4）</div></li>
-                  <li><span class="change-type ct-update">调整</span><div><b>收款方不允许手填</b>：必须从合作方列表选择，确保摘要生成准确（PRD1 §5.5.3）</div></li>
-                  <li><span class="change-type ct-update">调整</span><div><b>废弃后导入明细恢复</b>：明确外部导入明细废弃后恢复待提交，不删除（PRD1 §5.3.1）</div></li>
-                  <li><span class="change-type ct-new">新增</span><div><b>导入模板新增"费用项目"必填字段</b>，与U8科目映射联动（PRD1 §5.6.3）</div></li>
-                  <li><span class="change-type ct-update">调整</span><div><b>多笔摘要规则明确</b>：进项税额行和银行存款行摘要统一取第一笔申请格式（PRD2 §4.5）</div></li>
-                  <li><span class="change-type ct-new">新增</span><div><b>待确认 P6/P7</b>：U8接口幂等性确认、打回后是否重走完整审批流（PRD2 §十）</div></li>
-                </ul>
-              </div>
-              <div class="version-block">
-                <span class="version-tag" style="background:#52c41a">v1.0</span>
-                <span class="version-date">2026-04-09 &nbsp;初稿</span>
-                <ul class="change-list" style="margin-top:10px">
-                  <li><span class="change-type ct-new">新增</span><div>需求一：BMS批量结算流程合并（OA审批迁移至BMS）</div></li>
-                  <li><span class="change-type ct-new">新增</span><div>需求二：FNC从批量结算自动生成U8凭证</div></li>
-                </ul>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- ==================== 需求说明 ==================== -->
-        <div v-if="activeMenu==='prd'">
-          <div class="stats-row">
-            <div class="stat-card"><div class="stat-num">50</div><div class="stat-label">月均凭证数</div></div>
-            <div class="stat-card"><div class="stat-num">11,100</div><div class="stat-label">月均明细条数</div></div>
-            <div class="stat-card"><div class="stat-num">3</div><div class="stat-label">审批层级</div></div>
-            <div class="stat-card"><div class="stat-num" style="color:#52c41a">2</div><div class="stat-label">涉及系统 BMS/FNC</div></div>
-          </div>
-          <div class="prd-card">
-            <h4>📘 需求一：BMS批量结算流程合并</h4>
-            <p><b>目标：</b>将OA付款审批完整迁移至BMS，业务员在BMS一站式完成明细确认 → 发票上传 → 付款信息录入 → 三级审批。</p>
-            <p><b>核心改造：</b>申请表单新增发票上传模块、付款信息区块（含<b>收款方名称</b>只读下拉、<b>付款金额只读</b>等字段）；"结算说明"改造为"付款月份"下拉框。</p>
-            <p><b>新增功能：</b>外部对账单批量导入（标准模板Excel，5种格式统一）；合作方管理后台；财务打回逆向退回流程。</p>
-            <p><b>状态流转：</b>待提交 → 待部门审批 → 待财务审批 → 待领导审批 → 待支付 | 已驳回（含财务打回）| 已废弃</p>
-          </div>
-          <div class="prd-card">
-            <h4>📗 需求二：FNC U8自动入账</h4>
-            <p><b>目标：</b>在FNC凭证管理新增"从批量结算新增"入口，系统自动生成凭证分录，财务确认后一键推送U8，无需手动录入。</p>
-            <p><b>凭证规则：</b>每台车一条借方明细（不含税金额）；进项税额汇总一行；银行存款贷方一行。税率由财务选择，逐车单独计算（四舍五入）。</p>
-            <p><b>摘要格式：</b><code style="background:#f5f5f5;padding:2px 6px;border-radius:3px">付{月份}{费用项}，{收款公司全称}</code>　示例：付1月服务费，常有（天津）信息技术有限公司</p>
-            <p><b>约束：</b>多选申请必须同收款方；开具超时有专用处理流程；财务可打回待支付申请。</p>
-          </div>
-          <div class="card">
-            <div class="card-header"><span class="card-title">📋 BMS最终表单字段字典（本次新增/改造）</span></div>
-            <div class="card-body" style="padding:0">
-              <table>
-                <tr><th>区块</th><th>字段名</th><th>类型</th><th>必填</th><th>说明</th></tr>
-                <tr><td>结算说明（改造）</td><td>付款月份</td><td>下拉选择</td><td><span class="tag tag-red">必填</span></td><td>近12个月选项，取代原自由文本</td></tr>
-                <tr><td>付款信息（新增）</td><td>收款方名称</td><td>下拉搜索</td><td><span class="tag tag-red">必填</span></td><td>从合作方列表选择，不支持手填；同时作为凭证摘要来源</td></tr>
-                <tr><td>付款信息（新增）</td><td>收款方开户行</td><td>文本（自动带入）</td><td><span class="tag tag-red">必填</span></td><td>选择收款方后自动填入，不可修改</td></tr>
-                <tr><td>付款信息（新增）</td><td>收款方银行账号</td><td>文本（自动带入）</td><td><span class="tag tag-red">必填</span></td><td>选择收款方后自动填入，不可修改</td></tr>
-                <tr><td>付款信息（新增）</td><td>付款金额（元）</td><td>数字（只读）</td><td><span class="tag tag-red">必填</span></td><td><b>不允许手改</b>，等于Σ明细含税金额，防借贷不平</td></tr>
-                <tr><td>付款信息（新增）</td><td>付款种类</td><td>下拉选择</td><td><span class="tag tag-red">必填</span></td><td>对外支付 / 内部付款，后台可配置</td></tr>
-                <tr><td>付款信息（新增）</td><td>付款项目说明</td><td>文本输入</td><td><span class="tag tag-red">必填</span></td><td>原结算说明用途描述迁移至此</td></tr>
-                <tr><td>导入模板（新增）</td><td>费用项目</td><td>下拉选项</td><td><span class="tag tag-red">必填</span></td><td>服务费/过户费/整理费；用于查重和科目映射</td></tr>
-              </table>
-            </div>
-          </div>
-        </div>
 
         <!-- ==================== BMS-批量结算 ==================== -->
         <div v-if="activeMenu==='bms'">
 
-          <!-- 申请表单 panel -->
+          <!-- 申请表单 -->
           <div v-if="bmsView==='form'" class="card">
             <div class="card-header">
               <span class="card-title">填写申请表单</span>
               <button class="btn btn-default btn-sm" @click="bmsView='list'">← 返回列表</button>
             </div>
             <div class="card-body">
-              <div class="info-block" style="margin-bottom:16px">
+              <div class="info-block">
                 <b>结算机构：</b>番禺车管分所 &nbsp;&nbsp; <b>已选明细：</b>3条 &nbsp;&nbsp;
                 <b>明细合计：</b><span class="amount">¥ 1,060.00</span>
               </div>
@@ -352,27 +255,26 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="upload-hint">已上传 2 张</div>
               </div>
               <div class="file-list">
-                <div class="file-item">📄 invoice_001.pdf <span style="color:#ff4d4f;cursor:pointer;margin-left:4px">✕</span></div>
-                <div class="file-item">🖼️ invoice_002.jpg <span style="color:#ff4d4f;cursor:pointer;margin-left:4px">✕</span></div>
+                <span class="file-link">invoice_001.pdf <span style="color:#ff4d4f;margin-left:4px">✕</span></span>
+                <span class="file-link">invoice_002.jpg <span style="color:#ff4d4f;margin-left:4px">✕</span></span>
               </div>
               <div class="section-title" style="margin-bottom:14px;margin-top:20px">付款信息</div>
-              <div class="alert alert-warning">⚠️ 收款方名称必须从合作方列表选择（不支持手填），付款金额自动计算不可修改。</div>
+              <div class="alert alert-warning">⚠️ 收款方名称必须从合作方列表选择，付款金额自动计算不可修改。</div>
               <div class="form-row">
                 <div class="form-item">
                   <label class="form-label req">收款方名称</label>
                   <div class="form-control">
-                    <select class="sel" style="width:100%" @change="onPayeeChange">
+                    <select class="sel" style="width:100%">
                       <option value="">请选择收款方...</option>
                       <option value="changyou">常有（天津）信息技术有限公司</option>
                       <option value="haokuai">好快帮（广州）科技有限公司</option>
                     </select>
-                    <div class="form-note">从合作方列表选择后自动带入账号信息，作为凭证摘要收款方</div>
                   </div>
                 </div>
                 <div class="form-item">
                   <label class="form-label req">收款方开户行</label>
                   <div class="form-control">
-                    <input class="inp" style="width:100%;background:#f5f5f5" readonly value="中国工商银行天津滨海新区支行" placeholder="选择收款方后自动带入">
+                    <input class="inp" style="width:100%;background:#f5f5f5" readonly value="中国工商银行天津滨海新区支行">
                   </div>
                 </div>
               </div>
@@ -380,7 +282,7 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="form-item">
                   <label class="form-label req">收款方银行账号</label>
                   <div class="form-control">
-                    <input class="inp" style="width:100%;background:#f5f5f5" readonly value="0200004209200xxxxxx" placeholder="选择收款方后自动带入">
+                    <input class="inp" style="width:100%;background:#f5f5f5" readonly value="0200004209200xxxxxx">
                   </div>
                 </div>
                 <div class="form-item">
@@ -414,83 +316,10 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <tr><td colspan="4" style="text-align:right;font-weight:600">合计</td><td class="amount">1,060.00</td></tr>
               </table>
               <div style="margin-top:16px;display:flex;gap:8px">
-                <button class="btn btn-primary" @click="showApprovalSuccess=true">提交审批</button>
+                <button class="btn btn-primary">提交审批</button>
                 <button class="btn btn-default">保存草稿</button>
                 <button class="btn btn-default">继续添加车辆</button>
               </div>
-            </div>
-          </div>
-
-          <!-- 申请详情 panel -->
-          <div v-if="bmsView==='detail'" class="card">
-            <div class="card-header">
-              <span class="card-title">申请详情 — BS202601001</span>
-              <div style="display:flex;gap:8px">
-                <button class="btn btn-default btn-sm" @click="bmsView='list'">← 返回列表</button>
-                <button class="btn btn-default btn-sm">导出PDF</button>
-                <button class="btn btn-default btn-sm">打包下载附件ZIP</button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="info-grid">
-                <div class="info-item"><div class="info-label">申请编号</div><div class="info-value">BS202601001</div></div>
-                <div class="info-item"><div class="info-label">申请人</div><div class="info-value">张三（业务部）</div></div>
-                <div class="info-item"><div class="info-label">申请时间</div><div class="info-value">2026-01-15 10:23:45</div></div>
-                <div class="info-item"><div class="info-label">结算机构</div><div class="info-value">番禺车管分所</div></div>
-                <div class="info-item"><div class="info-label">费用类型</div><div class="info-value">服务商服务费</div></div>
-                <div class="info-item"><div class="info-label">付款月份</div><div class="info-value">2026年1月</div></div>
-                <div class="info-item"><div class="info-label">收款方名称</div><div class="info-value">常有（天津）信息技术有限公司</div></div>
-                <div class="info-item"><div class="info-label">含税合计</div><div class="info-value amount">¥ 1,060.00</div></div>
-                <div class="info-item"><div class="info-label">当前状态</div><div class="info-value"><span class="tag tag-orange">待领导审批</span></div></div>
-              </div>
-              <hr class="sep">
-              <div class="form-row">
-                <div style="flex:1">
-                  <div class="section-title" style="margin-bottom:12px">付款信息</div>
-                  <div class="info-grid">
-                    <div class="info-item"><div class="info-label">收款方开户行</div><div class="info-value">中国工商银行天津滨海新区支行</div></div>
-                    <div class="info-item"><div class="info-label">银行账号</div><div class="info-value">0200004209200xxxxxx</div></div>
-                    <div class="info-item"><div class="info-label">付款种类</div><div class="info-value">对外支付</div></div>
-                    <div class="info-item"><div class="info-label">付款金额</div><div class="info-value amount">¥ 1,060.00（只读）</div></div>
-                    <div class="info-item full"><div class="info-label">付款项目说明</div><div class="info-value">广州区域1月服务费结算</div></div>
-                  </div>
-                </div>
-                <div style="width:220px;flex-shrink:0">
-                  <div class="section-title" style="margin-bottom:12px">审批流程</div>
-                  <div class="approval-flow">
-                    <div class="flow-node">
-                      <div class="flow-left"><div class="flow-dot done"></div><div class="flow-line done"></div></div>
-                      <div class="flow-content"><div class="flow-name">张三</div><div class="flow-role">发起申请</div><div class="flow-time">2026-01-15 10:23</div></div>
-                    </div>
-                    <div class="flow-node">
-                      <div class="flow-left"><div class="flow-dot done"></div><div class="flow-line done"></div></div>
-                      <div class="flow-content"><div class="flow-name">李四</div><div class="flow-role">部门负责人</div><div class="flow-time">2026-01-15 14:05</div><div class="flow-result"><span class="tag tag-green">通过</span></div></div>
-                    </div>
-                    <div class="flow-node">
-                      <div class="flow-left"><div class="flow-dot done"></div><div class="flow-line done"></div></div>
-                      <div class="flow-content"><div class="flow-name">王财务</div><div class="flow-role">财务人员</div><div class="flow-time">2026-01-16 09:30</div><div class="flow-result"><span class="tag tag-green">通过</span></div></div>
-                    </div>
-                    <div class="flow-node">
-                      <div class="flow-left"><div class="flow-dot current"></div></div>
-                      <div class="flow-content"><div class="flow-name">赵总</div><div class="flow-role">公司领导</div><div class="flow-result"><span class="tag tag-blue">待审批</span></div></div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <hr class="sep">
-              <div class="section-title" style="margin-bottom:10px">发票附件（2张）</div>
-              <div class="file-list">
-                <div class="file-item" style="cursor:pointer;color:#1890ff">📄 invoice_001.pdf 👁 预览</div>
-                <div class="file-item" style="cursor:pointer;color:#1890ff">🖼️ invoice_002.jpg 👁 预览</div>
-              </div>
-              <hr class="sep">
-              <div class="section-title" style="margin-bottom:10px">明细列表（3条）</div>
-              <table>
-                <tr><th>车牌号</th><th>费用类型</th><th>含税结算金额</th><th>结算机构</th><th>完成时间</th><th>结算状态</th></tr>
-                <tr><td>粤A·12345</td><td>服务商服务费</td><td class="amount">360.00</td><td>番禺车管分所</td><td>2026-01-10</td><td><span class="tag tag-blue">已提交结算</span></td></tr>
-                <tr><td>粤B·67890</td><td>服务商服务费</td><td class="amount">360.00</td><td>番禺车管分所</td><td>2026-01-11</td><td><span class="tag tag-blue">已提交结算</span></td></tr>
-                <tr><td>粤C·11111</td><td>服务商服务费</td><td class="amount">340.00</td><td>番禺车管分所</td><td>2026-01-12</td><td><span class="tag tag-blue">已提交结算</span></td></tr>
-              </table>
             </div>
           </div>
 
@@ -505,41 +334,82 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 </div>
               </div>
               <div class="card-body">
+                <!-- Status tabs -->
                 <div class="status-tabs">
                   <span v-for="t in bmsStatusTabs" :key="t.key" class="stab" :class="{active:bmsStatusTab===t.key}" @click="bmsStatusTab=t.key">
                     {{t.label}}<span v-if="t.count" style="margin-left:3px;color:#ff4d4f">({{t.count}})</span>
                   </span>
                 </div>
+                <!-- Filter bar -->
                 <div class="filter-bar">
-                  <div class="filter-item"><label>申请时间</label><input class="inp" type="date" style="width:130px"><span>至</span><input class="inp" type="date" style="width:130px"></div>
-                  <div class="filter-item"><label>结算机构</label><select class="sel"><option>全部</option><option>番禺车管分所</option><option>天河车管</option></select></div>
-                  <div class="filter-item"><label>费用类型</label><select class="sel"><option>全部</option><option>服务商服务费</option><option>代办过户费</option><option>牌证费及邮寄费</option></select></div>
+                  <div class="filter-item"><label>申请时间</label><input class="inp" type="date" style="width:120px"><span>至</span><input class="inp" type="date" style="width:120px"></div>
+                  <div class="filter-item"><label>结算年月</label><input class="inp" type="month" style="width:120px"></div>
+                  <div class="filter-item">
+                    <label>结算机构</label>
+                    <select class="sel" @change="filterChanged=true">
+                      <option>全部</option><option>番禺车管分所</option><option>天河车管</option><option>越秀车管</option>
+                    </select>
+                  </div>
+                  <div class="filter-item">
+                    <label>费用类型</label>
+                    <select class="sel" @change="filterChanged=true">
+                      <option>全部</option><option>服务商服务费</option><option>代办过户费</option><option>牌证费及邮寄费</option>
+                    </select>
+                  </div>
+                  <div class="filter-item"><label>申请人</label><input class="inp" placeholder="姓名/工号" style="width:100px"></div>
                   <button class="btn btn-primary btn-sm">🔍 查询</button>
-                  <button class="btn btn-default btn-sm">重置</button>
+                  <button class="btn btn-default btn-sm" @click="filterChanged=false">重置</button>
                 </div>
+                <div v-if="filterChanged" class="alert alert-info" style="margin-bottom:10px">🔍 已根据筛选条件过滤，当前显示匹配结果。</div>
+
+                <!-- List table -->
                 <div class="table-wrap">
                   <table>
-                    <tr><th class="check-col"><input type="checkbox"></th><th>申请编号</th><th>结算机构</th><th>费用类型</th><th>付款月份</th><th>收款方</th><th>明细数</th><th>含税合计（元）</th><th>状态</th><th>申请时间</th><th>操作</th></tr>
-                    <tr v-for="r in bmsListData" :key="r.id">
-                      <td class="check-col"><input type="checkbox"></td>
-                      <td>{{r.id}}</td><td>{{r.org}}</td><td>{{r.feeType}}</td><td>{{r.month}}</td><td>{{r.payee}}</td><td>{{r.count}}条</td>
-                      <td class="amount">{{r.amount}}</td>
-                      <td><span class="tag" :class="r.tagClass">{{r.status}}</span></td>
-                      <td>{{r.time}}</td>
-                      <td>
-                        <button class="btn-link" @click="bmsView='detail'">查看</button>
-                        <span v-if="r.status==='待支付'"> | <button class="btn-link" style="color:#ff4d4f" @click="showReturn=true">打回</button></span>
-                        <span v-if="r.status==='已驳回'"> | <button class="btn-link">修改</button> | <button class="btn-link" style="color:#ff4d4f">废弃</button></span>
-                      </td>
+                    <tr>
+                      <th class="check-col"><input type="checkbox"></th>
+                      <th>申请编号</th><th>标题</th><th>结算机构</th><th>费用类型</th><th>结算年月</th><th>收款方</th><th>含税合计（元）</th><th>状态</th><th>申请人</th><th>申请时间</th><th>操作</th>
+                    </tr>
+                    <template v-for="r in filteredBmsList" :key="r.id">
+                      <tr>
+                        <td class="check-col"><input type="checkbox"></td>
+                        <td>{{r.id}}</td>
+                        <td style="max-width:160px;white-space:normal">{{r.title}}</td>
+                        <td>{{r.org}}</td>
+                        <td>{{r.feeType}}</td>
+                        <td>{{r.settleMonth}}</td>
+                        <td>{{r.payee}}</td>
+                        <td class="amount">{{r.amount}}</td>
+                        <td>
+                          <span class="tag" :class="r.tagClass">{{r.statusLabel}}</span>
+                          <span v-if="r.approvalStage" class="tag tag-gray" style="margin-left:4px;font-size:10px">{{r.approvalStage}}</span>
+                        </td>
+                        <td>{{r.applicant}}</td>
+                        <td>{{r.time}}</td>
+                        <td style="white-space:nowrap">
+                          <button class="btn-link" @click="openDetail(r)">查看</button>
+                          <span v-if="r.status==='approval'"> | <button class="btn-link" style="color:#ff4d4f" @click="showRejectDialog=true">驳回</button></span>
+                          <span v-if="r.status==='rejected'"> | <button class="btn-link">修改</button> | <button class="btn-link" style="color:#ff4d4f">废弃</button></span>
+                        </td>
+                      </tr>
+                      <!-- 已驳回：展示驳回理由 -->
+                      <tr v-if="r.status==='rejected' && r.rejectReason" class="reject-reason-row">
+                        <td></td>
+                        <td colspan="11">
+                          <span style="color:#999;margin-right:6px">驳回原因：</span>
+                          <span class="reject-reason-cell">{{r.rejectReason}}</span>
+                          <span style="color:#999;margin-left:12px;font-size:11px">— {{r.rejectBy}} · {{r.rejectTime}}</span>
+                        </td>
+                      </tr>
+                    </template>
+                    <tr v-if="filteredBmsList.length===0">
+                      <td colspan="12" style="text-align:center;color:#999;padding:30px">暂无数据</td>
                     </tr>
                   </table>
                 </div>
                 <div class="pagination">
-                  <span>共 42 条</span>
+                  <span>共 {{filteredBmsList.length}} 条</span>
                   <div class="page-btn">‹</div>
                   <div class="page-btn active">1</div>
-                  <div class="page-btn">2</div>
-                  <div class="page-btn">3</div>
                   <div class="page-btn">›</div>
                 </div>
               </div>
@@ -591,25 +461,121 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
             </div>
           </div>
 
-          <!-- Return Dialog -->
-          <div class="modal-mask" v-if="showReturn" @click.self="showReturn=false">
+          <!-- Reject/驳回 Dialog -->
+          <div class="modal-mask" v-if="showRejectDialog" @click.self="showRejectDialog=false">
             <div class="modal" style="max-width:440px">
-              <div class="modal-header"><span class="modal-title">⬅ 财务打回申请</span><span class="modal-close" @click="showReturn=false">✕</span></div>
+              <div class="modal-header"><span class="modal-title">驳回申请</span><span class="modal-close" @click="showRejectDialog=false">✕</span></div>
               <div class="modal-body">
-                <div class="alert alert-warning">打回后BMS申请退回"已驳回"，底层明细释放为"待提交"，申请人将收到通知。</div>
+                <div class="alert alert-warning">驳回后申请退回"已驳回"状态，申请人将收到通知。</div>
                 <div class="form-item full" style="margin-top:8px">
-                  <label class="form-label req">打回原因</label>
-                  <div class="form-control"><textarea class="inp" rows="3" style="width:100%;resize:none" placeholder="请填写打回原因（必填，不超过200字）"></textarea></div>
+                  <label class="form-label req">驳回原因</label>
+                  <div class="form-control"><textarea class="inp" rows="3" style="width:100%;resize:none" placeholder="请填写驳回原因（必填，不超过200字）"></textarea></div>
                 </div>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-default" @click="showReturn=false">取消</button>
-                <button class="btn btn-danger" @click="showReturn=false">确认打回</button>
+                <button class="btn btn-default" @click="showRejectDialog=false">取消</button>
+                <button class="btn btn-danger" @click="showRejectDialog=false">确认驳回</button>
               </div>
             </div>
           </div>
 
-        </div><!-- /BMS -->
+        </div><!-- /BMS list area -->
+
+        <!-- ===== BMS Detail Overlay (simulates new window) ===== -->
+        <div class="detail-overlay" v-if="activeMenu==='bms' && bmsView==='detail' && bmsCurrentDetail">
+          <div class="detail-overlay-bar">
+            <button class="btn btn-default btn-sm" @click="bmsView='list'">← 关闭</button>
+            <span style="font-size:12px;color:#999;margin-left:8px">申请详情（新窗口）</span>
+            <span style="flex:1"></span>
+            <button class="btn btn-default btn-sm">导出PDF</button>
+            <button class="btn btn-default btn-sm">打包下载附件ZIP</button>
+          </div>
+          <div class="detail-overlay-content">
+            <div class="card">
+              <div class="card-header">
+                <span class="card-title">申请详情 — {{bmsCurrentDetail.id}}</span>
+                <span class="tag" :class="bmsCurrentDetail.tagClass">{{bmsCurrentDetail.statusLabel}}</span>
+              </div>
+              <div class="card-body">
+                <!-- 已驳回：展示驳回原因 -->
+                <div v-if="bmsCurrentDetail.status==='rejected'" class="alert alert-error" style="margin-bottom:16px">
+                  <b>驳回原因：</b>{{bmsCurrentDetail.rejectReason}}
+                  <span style="margin-left:10px;font-size:11px;color:#999">— {{bmsCurrentDetail.rejectBy}} · {{bmsCurrentDetail.rejectTime}}</span>
+                </div>
+
+                <div class="info-grid">
+                  <div class="info-item"><div class="info-label">标题</div><div class="info-value">{{bmsCurrentDetail.title}}</div></div>
+                  <div class="info-item"><div class="info-label">申请编号</div><div class="info-value">{{bmsCurrentDetail.id}}</div></div>
+                  <div class="info-item"><div class="info-label">申请人</div><div class="info-value">{{bmsCurrentDetail.applicant}}（业务部）</div></div>
+                  <div class="info-item"><div class="info-label">申请时间</div><div class="info-value">{{bmsCurrentDetail.time}} 10:23:45</div></div>
+                  <div class="info-item"><div class="info-label">结算机构</div><div class="info-value">{{bmsCurrentDetail.org}}</div></div>
+                  <div class="info-item"><div class="info-label">费用类型</div><div class="info-value">{{bmsCurrentDetail.feeType}}</div></div>
+                  <div class="info-item"><div class="info-label">结算年月</div><div class="info-value">{{bmsCurrentDetail.settleMonth}}</div></div>
+                  <div class="info-item"><div class="info-label">收款方名称</div><div class="info-value">{{bmsCurrentDetail.payeeFull||bmsCurrentDetail.payee}}</div></div>
+                  <div class="info-item"><div class="info-label">含税合计</div><div class="info-value amount">¥ {{bmsCurrentDetail.amount}}</div></div>
+                </div>
+                <hr class="sep">
+                <div class="form-row">
+                  <div style="flex:1">
+                    <div class="section-title" style="margin-bottom:12px">付款信息</div>
+                    <div class="info-grid">
+                      <div class="info-item"><div class="info-label">收款方开户行</div><div class="info-value">中国工商银行天津滨海新区支行</div></div>
+                      <div class="info-item"><div class="info-label">银行账号</div><div class="info-value">0200004209200xxxxxx</div></div>
+                      <div class="info-item"><div class="info-label">付款种类</div><div class="info-value">对外支付</div></div>
+                      <div class="info-item"><div class="info-label">付款金额</div><div class="info-value amount">¥ {{bmsCurrentDetail.amount}}（只读）</div></div>
+                      <div class="info-item full"><div class="info-label">付款项目说明</div><div class="info-value">广州区域{{bmsCurrentDetail.settleMonth}}服务费结算</div></div>
+                    </div>
+                  </div>
+                  <div style="width:220px;flex-shrink:0">
+                    <div class="section-title" style="margin-bottom:12px">审批流程</div>
+                    <div class="approval-flow">
+                      <div class="flow-node">
+                        <div class="flow-left"><div class="flow-dot done"></div><div class="flow-line done"></div></div>
+                        <div class="flow-content"><div class="flow-name">{{bmsCurrentDetail.applicant}}</div><div class="flow-role">发起申请</div><div class="flow-time">{{bmsCurrentDetail.time}} 10:23</div></div>
+                      </div>
+                      <div class="flow-node">
+                        <div class="flow-left"><div :class="['flow-dot', bmsCurrentDetail.status==='draft'?'pending':'done']"></div><div :class="['flow-line', bmsCurrentDetail.status==='draft'?'':'done']"></div></div>
+                        <div class="flow-content"><div class="flow-name">李四</div><div class="flow-role">部门负责人</div>
+                          <div v-if="bmsCurrentDetail.status!=='draft'" class="flow-time">{{bmsCurrentDetail.time}} 14:05</div>
+                          <div v-if="bmsCurrentDetail.status!=='draft'" class="flow-result"><span class="tag tag-green">通过</span></div>
+                        </div>
+                      </div>
+                      <div class="flow-node">
+                        <div class="flow-left"><div :class="['flow-dot', ['pay','rejected','discarded'].includes(bmsCurrentDetail.status)?'done':bmsCurrentDetail.status==='approval'&&bmsCurrentDetail.approvalStage==='待财务审批'?'current':'pending']"></div><div :class="['flow-line', ['pay','rejected','discarded'].includes(bmsCurrentDetail.status)?'done':'']"></div></div>
+                        <div class="flow-content"><div class="flow-name">王财务</div><div class="flow-role">财务人员</div>
+                          <div v-if="['pay'].includes(bmsCurrentDetail.status)" class="flow-result"><span class="tag tag-green">通过</span></div>
+                          <div v-else-if="bmsCurrentDetail.status==='rejected'" class="flow-result"><span class="tag tag-red">驳回</span></div>
+                          <div v-else-if="bmsCurrentDetail.status==='approval'&&bmsCurrentDetail.approvalStage==='待财务审批'" class="flow-result"><span class="tag tag-blue">待审批</span></div>
+                        </div>
+                      </div>
+                      <div class="flow-node">
+                        <div class="flow-left"><div :class="['flow-dot', bmsCurrentDetail.status==='pay'?'done':bmsCurrentDetail.status==='approval'&&bmsCurrentDetail.approvalStage==='待领导审批'?'current':'pending']"></div></div>
+                        <div class="flow-content"><div class="flow-name">赵总</div><div class="flow-role">公司领导</div>
+                          <div v-if="bmsCurrentDetail.status==='pay'" class="flow-result"><span class="tag tag-green">通过</span></div>
+                          <div v-else-if="bmsCurrentDetail.status==='approval'&&bmsCurrentDetail.approvalStage==='待领导审批'" class="flow-result"><span class="tag tag-blue">待审批</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="sep">
+                <div class="section-title" style="margin-bottom:10px">发票附件（2张）</div>
+                <div class="file-list">
+                  <a class="file-link" @click.prevent="previewFile('invoice_001.pdf')" href="#">invoice_001.pdf（点击预览）</a>
+                  <a class="file-link" @click.prevent="previewFile('invoice_002.jpg')" href="#">invoice_002.jpg（点击预览）</a>
+                </div>
+                <hr class="sep">
+                <div class="section-title" style="margin-bottom:10px">明细列表（3条）</div>
+                <table>
+                  <tr><th>车牌号</th><th>费用类型</th><th>含税结算金额</th><th>结算机构</th><th>结算状态</th></tr>
+                  <tr><td>粤A·12345</td><td>服务商服务费</td><td class="amount">360.00</td><td>番禺车管分所</td><td><span class="tag tag-blue">已提交结算</span></td></tr>
+                  <tr><td>粤B·67890</td><td>服务商服务费</td><td class="amount">360.00</td><td>番禺车管分所</td><td><span class="tag tag-blue">已提交结算</span></td></tr>
+                  <tr><td>粤C·11111</td><td>服务商服务费</td><td class="amount">340.00</td><td>番禺车管分所</td><td><span class="tag tag-blue">已提交结算</span></td></tr>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <!-- ==================== FNC-批量结算 ==================== -->
         <div v-if="activeMenu==='fnc-settle'">
@@ -628,9 +594,10 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
               </div>
               <table>
                 <tr><th class="check-col"><input type="checkbox"></th><th>申请编号</th><th>结算机构</th><th>费用类型</th><th>收款方名称</th><th>含税合计（元）</th><th>明细数</th><th>申请时间</th><th>凭证状态</th><th>操作</th></tr>
-                <tr><td class="check-col"><input type="checkbox" checked></td><td>BS202601001</td><td>番禺车管分所</td><td>服务商服务费</td><td>常有（天津）信息技术有限公司</td><td class="amount">1,060.00</td><td>3条</td><td>2026-01-15</td><td><span class="tag tag-gray">未生成</span></td><td><button class="btn-link" @click="showReturn=true">打回</button></td></tr>
-                <tr><td class="check-col"><input type="checkbox" checked></td><td>BS202601002</td><td>天河车管</td><td>服务商服务费</td><td>常有（天津）信息技术有限公司</td><td class="amount">2,400.00</td><td>6条</td><td>2026-01-16</td><td><span class="tag tag-gray">未生成</span></td><td><button class="btn-link" @click="showReturn=true">打回</button></td></tr>
+                <tr><td class="check-col"><input type="checkbox" checked></td><td>BS202601001</td><td>番禺车管分所</td><td>服务商服务费</td><td>常有（天津）信息技术有限公司</td><td class="amount">1,060.00</td><td>3条</td><td>2026-01-15</td><td><span class="tag tag-gray">未生成</span></td><td><button class="btn-link" @click="showReturnFnc=true">打回</button></td></tr>
+                <tr><td class="check-col"><input type="checkbox" checked></td><td>BS202601002</td><td>天河车管</td><td>服务商服务费</td><td>常有（天津）信息技术有限公司</td><td class="amount">2,400.00</td><td>6条</td><td>2026-01-16</td><td><span class="tag tag-gray">未生成</span></td><td><button class="btn-link" @click="showReturnFnc=true">打回</button></td></tr>
                 <tr><td class="check-col"><input type="checkbox"></td><td>BS202601003</td><td>越秀车管</td><td>代办过户费</td><td>好快帮（广州）科技有限公司</td><td class="amount">3,800.00</td><td>9条</td><td>2026-01-17</td><td><span class="tag tag-blue">已关联凭证</span></td><td></td></tr>
+                <tr><td class="check-col"><input type="checkbox"></td><td>BS202601005</td><td>天河车管</td><td>服务商服务费</td><td>好快帮（广州）科技有限公司</td><td class="amount">4,200.00</td><td>12条</td><td>2026-01-18</td><td><span class="tag tag-gray">未生成</span></td><td><button class="btn-link" @click="showReturnFnc=true">打回</button></td></tr>
               </table>
               <div class="alert alert-warning" style="margin-top:12px">⚠️ 多选时系统将校验收款方是否一致，不同收款方的申请不允许合并为同一张凭证。</div>
             </div>
@@ -639,18 +606,13 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
           <!-- Voucher New Step 1 -->
           <div class="modal-mask" v-if="voucherNewStep===1" @click.self="voucherNewStep=0">
             <div class="modal" style="max-width:700px">
-              <div class="modal-header">
-                <span class="modal-title">从批量结算新增凭证 — 第1步：选择来源记录</span>
-                <span class="modal-close" @click="voucherNewStep=0">✕</span>
-              </div>
+              <div class="modal-header"><span class="modal-title">从批量结算新增凭证 — 第1步：选择来源记录</span><span class="modal-close" @click="voucherNewStep=0">✕</span></div>
               <div class="modal-body">
                 <div class="filter-bar">
-                  <div class="filter-item"><label>费用项类型 <span style="color:#ff4d4f">*</span></label>
-                    <select class="sel"><option>服务商服务费</option><option>代办过户费</option><option>牌证费及邮寄费</option></select>
-                  </div>
+                  <div class="filter-item"><label>费用项类型 <span style="color:#ff4d4f">*</span></label><select class="sel"><option>服务商服务费</option><option>代办过户费</option></select></div>
                   <div class="filter-item"><label>结算年月 <span style="color:#ff4d4f">*</span></label><input class="inp" type="month" value="2026-01"></div>
                 </div>
-                <div class="alert alert-warning">⚠️ 多选时所选申请必须属于同一收款方，否则系统将阻断并提示"请分批生成凭证"。</div>
+                <div class="alert alert-warning">⚠️ 多选时所选申请必须属于同一收款方，否则系统将阻断。</div>
                 <table>
                   <tr><th class="check-col"><input type="checkbox"></th><th>申请编号</th><th>结算机构</th><th>收款方名称</th><th>含税合计（元）</th><th>明细条数</th><th>申请时间</th></tr>
                   <tr><td class="check-col"><input type="checkbox" checked></td><td>BS202601001</td><td>番禺车管分所</td><td>常有（天津）信息技术有限公司</td><td class="amount">1,060.00</td><td>3</td><td>2026-01-15</td></tr>
@@ -667,50 +629,27 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
 
           <!-- Voucher New Step 2 -->
           <div class="modal-mask" v-if="voucherNewStep===2" @click.self="voucherNewStep=0">
-            <div class="modal" style="max-width:900px">
-              <div class="modal-header">
-                <span class="modal-title">从批量结算新增凭证 — 第2步：凭证分录预览</span>
-                <span class="modal-close" @click="voucherNewStep=0">✕</span>
-              </div>
+            <div class="modal" style="max-width:920px">
+              <div class="modal-header"><span class="modal-title">从批量结算新增凭证 — 第2步：凭证分录预览</span><span class="modal-close" @click="voucherNewStep=0">✕</span></div>
               <div class="modal-body">
                 <div class="form-row">
-                  <div class="form-item">
-                    <label class="form-label req">凭证类别</label>
-                    <div class="form-control"><input class="inp" readonly value="记" style="width:80px;background:#f5f5f5"></div>
-                  </div>
-                  <div class="form-item">
-                    <label class="form-label req">账套</label>
-                    <div class="form-control"><select class="sel"><option>唯普WP</option><option>唯普云WPY</option><option>机拍JP</option></select></div>
-                  </div>
-                  <div class="form-item">
-                    <label class="form-label req">进项税率</label>
-                    <div class="form-control"><select class="sel"><option>6%</option><option>9%</option><option>3%</option><option>0%</option></select><div class="form-note">选择税率后自动重算所有分录</div></div>
-                  </div>
-                  <div class="form-item">
-                    <label class="form-label">制单日期</label>
-                    <div class="form-control"><input class="inp" type="date" value="2026-01-20"></div>
-                  </div>
+                  <div class="form-item"><label class="form-label req">账套</label><div class="form-control"><select class="sel"><option>唯普WP</option><option>唯普云WPY</option><option>机拍JP</option></select></div></div>
+                  <div class="form-item"><label class="form-label req">进项税率</label><div class="form-control"><select class="sel"><option>6%</option><option>9%</option><option>3%</option><option>0%</option></select><div class="form-note">选择税率后自动重算</div></div></div>
+                  <div class="form-item"><label class="form-label">制单日期</label><div class="form-control"><input class="inp" type="date" value="2026-01-20"></div></div>
                 </div>
                 <div class="alert alert-info">📊 含税金额和进项税额仅供核对，不推送U8；借方金额（不含税）才是推送字段。</div>
-                <div class="alert alert-warning">⚙️ <b>整理费行部门编码说明（方案二）</b>：部门编码已按"结算机构→部门映射"自动带入（橙色底），财务可手动修改，<b>整理费行部门编码必填，未填写不允许确认</b>。</div>
                 <div class="table-wrap">
                   <table>
                     <tr style="background:#f0f7ff"><th>序号</th><th>借/贷</th><th>摘要</th><th>科目编码</th><th>科目名称</th><th>含税金额</th><th>进项税额</th><th>借方（不含税）</th><th>贷方</th><th>车牌号</th><th>部门编码</th></tr>
                     <tr><td>1</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>64010102</td><td>服务费</td><td>360.00</td><td>20.38</td><td class="amount">339.62</td><td>—</td><td>粤A·12345</td><td style="color:#999">—</td></tr>
                     <tr><td>2</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>64010102</td><td>服务费</td><td>360.00</td><td>20.38</td><td class="amount">339.62</td><td>—</td><td>粤B·67890</td><td style="color:#999">—</td></tr>
                     <tr><td>3</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>64010102</td><td>服务费</td><td>340.00</td><td>19.25</td><td class="amount">320.75</td><td>—</td><td>粤C·11111</td><td style="color:#999">—</td></tr>
-                    <tr><td>4</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>64010102</td><td>服务费</td><td>400.00</td><td>22.64</td><td class="amount">377.36</td><td>—</td><td>粤D·22222</td><td style="color:#999">—</td></tr>
-                    <tr><td>5</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>64010102</td><td>服务费</td><td>—</td><td colspan="2" style="text-align:center">…（共9条）</td><td>—</td><td>…</td><td style="color:#999">—</td></tr>
+                    <tr><td>4-9</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>64010102</td><td>服务费</td><td>—</td><td colspan="2" style="text-align:center">…（共6条）</td><td>—</td><td>…</td><td style="color:#999">—</td></tr>
                     <tr style="background:#fffbe6"><td>N+1</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>2221010101</td><td>进项税额</td><td>—</td><td>—</td><td class="amount">195.77</td><td>—</td><td>—</td><td style="color:#999">—</td></tr>
                     <tr style="background:#fff0f6"><td>N+2</td><td>贷</td><td>付1月服务费，常有（天津）...</td><td>10020101</td><td>银行存款</td><td>—</td><td>—</td><td>—</td><td class="amount">3,460.00</td><td>—</td><td style="color:#999">—</td></tr>
                   </table>
                 </div>
-                <div class="alert alert-info" style="margin-top:8px;font-size:11px;color:#666">
-                  💡 <b>整理费行示例</b>（如果本凭证含整理费）：部门编码列将显示为 <input class="inp" style="width:60px;background:#fff3cd;font-size:11px;padding:2px 6px" readonly value="7402"> <span style="color:#d46b08;font-size:10px">自动带入（番禺车管→7402），可手改，必填</span>
-                </div>
-                <div class="summary-bar" style="margin-top:10px">
-                  借方合计：<b class="amount">¥ 3,460.00</b> &nbsp;|&nbsp; 贷方合计：<b class="amount">¥ 3,460.00</b> &nbsp;|&nbsp; <span class="tag tag-green">✓ 借贷平衡</span>
-                </div>
+                <div class="summary-bar" style="margin-top:10px">借方合计：<b class="amount">¥ 3,460.00</b> &nbsp;|&nbsp; 贷方合计：<b class="amount">¥ 3,460.00</b> &nbsp;|&nbsp; <span class="tag tag-green">✓ 借贷平衡</span></div>
               </div>
               <div class="modal-footer">
                 <button class="btn btn-default" @click="voucherNewStep=1">← 上一步</button>
@@ -719,10 +658,10 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
             </div>
           </div>
 
-          <!-- Return dialog also here -->
-          <div class="modal-mask" v-if="showReturn" @click.self="showReturn=false">
+          <!-- FNC Return dialog -->
+          <div class="modal-mask" v-if="showReturnFnc" @click.self="showReturnFnc=false">
             <div class="modal" style="max-width:440px">
-              <div class="modal-header"><span class="modal-title">⬅ 财务打回申请</span><span class="modal-close" @click="showReturn=false">✕</span></div>
+              <div class="modal-header"><span class="modal-title">财务打回申请</span><span class="modal-close" @click="showReturnFnc=false">✕</span></div>
               <div class="modal-body">
                 <div class="alert alert-warning">打回后BMS申请退回"已驳回"，底层明细释放，申请人收到通知。</div>
                 <div class="form-item full" style="margin-top:8px">
@@ -731,8 +670,8 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 </div>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-default" @click="showReturn=false">取消</button>
-                <button class="btn btn-danger" @click="showReturn=false">确认打回</button>
+                <button class="btn btn-default" @click="showReturnFnc=false">取消</button>
+                <button class="btn btn-danger" @click="showReturnFnc=false">确认打回</button>
               </div>
             </div>
           </div>
@@ -755,42 +694,49 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 </span>
               </div>
               <div class="filter-bar">
-                <div class="filter-item"><label>凭证期间</label><input class="inp" type="month" value="2026-01"></div>
-                <div class="filter-item"><label>制单日期</label><input class="inp" type="date"></div>
-                <div class="filter-item"><label>摘要</label><input class="inp" placeholder="搜索摘要..."></div>
-                <button class="btn btn-primary btn-sm">🔍 查询</button>
+                <div class="filter-item"><label>凭证期间</label><input class="inp" type="date" style="width:120px"><span>—</span><input class="inp" type="date" style="width:120px"></div>
+                <div class="filter-item"><label>制单日期</label><input class="inp" type="date" style="width:120px"><span>—</span><input class="inp" type="date" style="width:120px"></div>
+                <div class="filter-item"><label>摘要</label><input class="inp" placeholder="请输入" style="width:140px"></div>
+                <button class="btn btn-primary btn-sm">查询</button>
+                <button class="btn btn-default btn-sm">新增</button>
               </div>
               <div class="table-wrap">
                 <table>
-                  <tr><th>凭证号</th><th>凭证期间</th><th>摘要</th><th>来源</th><th>制单日期</th><th>制单人</th><th>借方金额（元）</th><th>贷方金额（元）</th><th>状态</th><th>操作</th></tr>
-                  <tr v-for="v in voucherListData" :key="v.id">
-                    <td>{{v.id}}</td><td>{{v.period}}</td><td>{{v.summary}}</td>
-                    <td><span v-if="v.fromBatch" class="tag tag-blue">批量结算</span><span v-else class="tag tag-gray">手工</span></td>
-                    <td>{{v.date}}</td><td>{{v.user}}</td>
-                    <td class="amount">{{v.debit}}</td><td class="amount">{{v.credit}}</td>
+                  <tr><th>凭证号</th><th>凭证期间</th><th>摘要</th><th>所属科目</th><th>制单日期</th><th>制单人</th><th>借方金额（元）</th><th>贷方金额（元）</th><th>状态</th><th>操作</th></tr>
+                  <tr v-for="v in filteredVoucherList" :key="v.id">
+                    <td>{{v.id}}</td>
+                    <td>{{v.period}}</td>
+                    <td style="max-width:180px;white-space:normal;line-height:1.4">{{v.summary}}</td>
+                    <td style="max-width:120px;white-space:normal;line-height:1.4;font-size:11px;color:#666">{{v.subject}}</td>
+                    <td>{{v.date}}</td>
+                    <td>{{v.user}}</td>
+                    <td class="amount">{{v.debit}}</td>
+                    <td class="amount">{{v.credit}}</td>
                     <td><span class="tag" :class="v.tagClass">{{v.status}}</span></td>
-                    <td>
+                    <td style="white-space:nowrap">
                       <button class="btn-link">查看</button>
-                      <span v-if="v.status==='待开具'"> | <button class="btn-link">开具</button> | <button class="btn-link" style="color:#ff4d4f" @click="showReturn=true">打回</button></span>
-                      <span v-if="v.status==='开具失败'"> | <span class="tooltip-btn"><button class="btn-link" style="color:#ff4d4f">失败原因</button><div class="tooltip-box">2026-01-20 14:23 失败原因：会计期间早于开账日期</div></span> | <button class="btn-link">重新开具</button></span>
-                      <span v-if="v.status==='开具超时'"> | <button class="btn-link" style="color:#fa8c16" @click="showBackfill=true">手动回填凭证号</button> | <button class="btn-link">重新开具</button></span>
-                      <span v-if="v.status==='已开具'"> | <button class="btn-link" style="color:#999">取消（不可逆）</button></span>
+                      <span v-if="v.statusKey==='pending'"> | <button class="btn-link">开具</button> | <button class="btn-link" style="color:#ff4d4f" @click="showReturnVoucher=true">取消</button></span>
+                      <span v-if="v.statusKey==='failed'"> | <span class="tooltip-btn"><button class="btn-link" style="color:#ff4d4f">失败原因</button><div class="tooltip-box">{{v.failReason}}</div></span> | <button class="btn-link">开具</button> | <button class="btn-link">取消</button></span>
+                      <span v-if="v.statusKey==='timeout'"> | <button class="btn-link" style="color:#fa8c16" @click="showBackfill=true">手动回填凭证号</button> | <button class="btn-link">重新开具</button></span>
+                      <span v-if="v.statusKey==='issued'"> | <button class="btn-link" style="color:#999">取消（不可逆）</button></span>
                     </td>
+                  </tr>
+                  <tr v-if="filteredVoucherList.length===0">
+                    <td colspan="10" style="text-align:center;color:#999;padding:30px">暂无数据</td>
                   </tr>
                 </table>
               </div>
-              <div class="alert alert-warning" style="margin-top:12px" v-if="voucherTab==='timeout'||voucherListData.some(v=>v.status==='开具超时')">
-                ⚠️ <b>开具超时说明</b>：超时时U8可能已接收并落账。请先在U8系统核查是否已生成凭证，再选择操作——已生成则"手动回填凭证号"，未生成则"重新开具"，<b>切勿未核查直接重试</b>，否则可能导致U8重复凭证。
+              <div v-if="voucherTab==='timeout'||voucherTab==='all'" class="alert alert-warning" style="margin-top:12px">
+                ⚠️ <b>开具超时说明：</b>超时时U8可能已接收并落账，请先在U8系统核查，再选择"手动回填凭证号"或"重新开具"，<b>切勿未核查直接重试</b>。
               </div>
               <div class="pagination">
-                <span>共 18 条</span>
+                <span>共 {{filteredVoucherList.length}} 条</span>
                 <div class="page-btn active">1</div>
-                <div class="page-btn">2</div>
               </div>
             </div>
           </div>
 
-          <!-- Voucher step modals reused -->
+          <!-- 从批量结算新增 Step 1 -->
           <div class="modal-mask" v-if="voucherNewStep===1" @click.self="voucherNewStep=0">
             <div class="modal" style="max-width:700px">
               <div class="modal-header"><span class="modal-title">从批量结算新增凭证 — 第1步</span><span class="modal-close" @click="voucherNewStep=0">✕</span></div>
@@ -813,6 +759,8 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
               </div>
             </div>
           </div>
+
+          <!-- 从批量结算新增 Step 2 -->
           <div class="modal-mask" v-if="voucherNewStep===2" @click.self="voucherNewStep=0">
             <div class="modal" style="max-width:960px">
               <div class="modal-header"><span class="modal-title">从批量结算新增凭证 — 第2步：预览确认</span><span class="modal-close" @click="voucherNewStep=0">✕</span></div>
@@ -823,21 +771,16 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                   <div class="form-item"><label class="form-label">制单日期</label><div class="form-control"><input class="inp" type="date" value="2026-01-20"></div></div>
                 </div>
                 <div class="alert alert-info">📊 含税金额和进项税额仅供核对，不推送U8；推送字段为借方金额（不含税）。</div>
-                <div class="alert alert-warning">⚙️ <b>整理费行部门编码（方案二）</b>：已按"结算机构→部门映射"自动带入（橙色底可手改），<b>必填，空白时不允许确认</b>。如映射未配置请先在"后台—部门编码映射"页维护。</div>
+                <div class="alert alert-warning">⚙️ <b>整理费行部门编码（方案二）：</b>已按映射自动带入（橙色底可手改），<b>必填，空白时不允许确认</b>。</div>
                 <div class="table-wrap">
                   <table>
                     <tr style="background:#f0f7ff"><th>序号</th><th>借/贷</th><th>摘要</th><th>科目</th><th>含税</th><th>进项税</th><th>借方（不含税）</th><th>贷方</th><th>车牌</th><th>部门编码</th></tr>
-                    <!-- 服务费行：部门编码为 — -->
-                    <tr><td>1-3</td><td>借</td><td>付12月服务费，常有（天津）...</td><td>64010102 服务费</td><td colspan="2">（逐车，共3条）</td><td class="amount">943.40</td><td>—</td><td>粤A·12345等</td><td style="color:#999">—</td></tr>
-                    <!-- 整理费行：部门编码自动带入，可手改，必填 -->
-                    <tr style="background:#fffaf0"><td>4</td><td>借</td><td>付12月整理费，常有（天津）...</td><td>64011209 整理费</td><td>140.00</td><td>7.92</td><td class="amount">132.08</td><td>—</td><td>粤B·67890</td>
-                      <td><input class="inp" style="width:68px;background:#fff3cd;font-weight:600" value="7402" title="自动带入：番禺车管分所→7402 车客主文事业部（番禺），可手动修改"><div style="font-size:10px;color:#d46b08;margin-top:1px">自动带入·可改</div></td>
+                    <tr><td>1-3</td><td>借</td><td>付1月服务费，常有（天津）...</td><td>64010102 服务费</td><td colspan="2">（逐车，共3条）</td><td class="amount">943.40</td><td>—</td><td>粤A等</td><td style="color:#999">—</td></tr>
+                    <tr style="background:#fffaf0"><td>4</td><td>借</td><td>付1月整理费，常有（天津）...</td><td>64011209 整理费</td><td>140.00</td><td>7.92</td><td class="amount">132.08</td><td>—</td><td>粤B·67890</td>
+                      <td><input class="inp" style="width:68px;background:#fff3cd;font-weight:600" value="7402"><div style="font-size:10px;color:#d46b08;margin-top:1px">自动带入·可改</div></td>
                     </tr>
-                    <tr style="background:#fffaf0"><td>5</td><td>借</td><td>付12月整理费，常有（天津）...</td><td>64011209 整理费</td><td>140.00</td><td>7.92</td><td class="amount">132.08</td><td>—</td><td>粤C·11111</td>
-                      <td><input class="inp" style="width:68px;background:#fff3cd;font-weight:600" value="7403" title="自动带入：天河车管→7403 车客主文事业部（天河），可手动修改"><div style="font-size:10px;color:#d46b08;margin-top:1px">自动带入·可改</div></td>
-                    </tr>
-                    <tr style="background:#fffbe6"><td>N+1</td><td>借</td><td>付12月整理费，常有（天津）...</td><td>2221010101 进项税额</td><td>—</td><td>—</td><td class="amount">72.06</td><td>—</td><td>—</td><td style="color:#999">—</td></tr>
-                    <tr style="background:#fff0f6"><td>N+2</td><td>贷</td><td>付12月整理费，常有（天津）...</td><td>10020101 银行存款</td><td>—</td><td>—</td><td>—</td><td class="amount">1,363.40</td><td>—</td><td style="color:#999">—</td></tr>
+                    <tr style="background:#fffbe6"><td>N+1</td><td>借</td><td>付1月整理费，常有（天津）...</td><td>2221010101 进项税额</td><td>—</td><td>—</td><td class="amount">72.06</td><td>—</td><td>—</td><td style="color:#999">—</td></tr>
+                    <tr style="background:#fff0f6"><td>N+2</td><td>贷</td><td>付1月整理费，常有（天津）...</td><td>10020101 银行存款</td><td>—</td><td>—</td><td>—</td><td class="amount">1,363.40</td><td>—</td><td style="color:#999">—</td></tr>
                   </table>
                 </div>
                 <div class="summary-bar" style="margin-top:10px">借方 <b class="amount">¥ 1,363.40</b> &nbsp;|&nbsp; 贷方 <b class="amount">¥ 1,363.40</b> &nbsp;|&nbsp; <span class="tag tag-green">✓ 借贷平衡</span></div>
@@ -849,46 +792,38 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
             </div>
           </div>
 
-          <!-- Return / backfill dialogs -->
-          <div class="modal-mask" v-if="showReturn" @click.self="showReturn=false">
+          <!-- Return/Cancel dialog -->
+          <div class="modal-mask" v-if="showReturnVoucher" @click.self="showReturnVoucher=false">
             <div class="modal" style="max-width:440px">
-              <div class="modal-header"><span class="modal-title">⬅ 财务打回</span><span class="modal-close" @click="showReturn=false">✕</span></div>
+              <div class="modal-header"><span class="modal-title">取消凭证</span><span class="modal-close" @click="showReturnVoucher=false">✕</span></div>
               <div class="modal-body">
-                <div class="alert alert-warning">打回后凭证变"已取消"，BMS申请退回"已驳回"，申请人收到通知。</div>
-                <div class="form-item full" style="margin-top:8px"><label class="form-label req">打回原因</label><div class="form-control"><textarea class="inp" rows="3" style="width:100%;resize:none" placeholder="必填"></textarea></div></div>
+                <div class="alert alert-warning">取消后凭证变"已取消"，BMS申请退回"已驳回"，申请人收到通知。</div>
+                <div class="form-item full" style="margin-top:8px"><label class="form-label req">取消原因</label><div class="form-control"><textarea class="inp" rows="3" style="width:100%;resize:none" placeholder="必填"></textarea></div></div>
               </div>
               <div class="modal-footer">
-                <button class="btn btn-default" @click="showReturn=false">取消</button>
-                <button class="btn btn-danger" @click="showReturn=false">确认打回</button>
+                <button class="btn btn-default" @click="showReturnVoucher=false">取消</button>
+                <button class="btn btn-danger" @click="showReturnVoucher=false">确认取消</button>
               </div>
             </div>
           </div>
 
-          <!-- 手动回填凭证号 Dialog（开具超时） -->
+          <!-- 手动回填凭证号 -->
           <div class="modal-mask" v-if="showBackfill" @click.self="showBackfill=false">
             <div class="modal" style="max-width:500px">
-              <div class="modal-header"><span class="modal-title">✏️ 手动回填凭证号（开具超时）</span><span class="modal-close" @click="showBackfill=false">✕</span></div>
+              <div class="modal-header"><span class="modal-title">手动回填凭证号（开具超时）</span><span class="modal-close" @click="showBackfill=false">✕</span></div>
               <div class="modal-body">
-                <div class="alert alert-error">⚠️ <b>高风险操作</b>：请先在U8系统中核查该凭证是否已生成，确认已生成后再回填凭证号。回填后凭证状态将变为"已开具"，此操作不可撤销。</div>
+                <div class="alert alert-error">⚠️ <b>高风险操作：</b>请先在U8系统中核查该凭证是否已生成，确认已生成后再回填凭证号。回填后状态将变为"已开具"，此操作不可撤销。</div>
                 <div class="info-grid" style="margin-bottom:14px">
                   <div class="info-item"><div class="info-label">凭证编号（FNC）</div><div class="info-value">V2026003</div></div>
-                  <div class="info-item"><div class="info-label">摘要</div><div class="info-value">付1月服务费，好快帮（广州）...</div></div>
+                  <div class="info-item"><div class="info-label">摘要</div><div class="info-value">付1月服务费，好快帮...</div></div>
                   <div class="info-item"><div class="info-label">贷方金额</div><div class="info-value amount">¥ 4,200.00</div></div>
                   <div class="info-item"><div class="info-label">超时时间</div><div class="info-value" style="color:#fa8c16">2026-01-21 15:02:34</div></div>
                 </div>
-                <div class="form-row">
-                  <div class="form-item full">
-                    <label class="form-label req">U8凭证号</label>
-                    <div class="form-control">
-                      <input class="inp" style="width:100%" placeholder="请输入在U8系统中查到的凭证号，如：记0012">
-                      <div class="form-note">格式：凭证类别（记）+ 凭证号流水，如：记0012。请确保与U8系统一致。</div>
-                    </div>
-                  </div>
-                </div>
-                <div class="form-row">
-                  <div class="form-item full">
-                    <label class="form-label">备注</label>
-                    <div class="form-control"><input class="inp" style="width:100%" placeholder="选填，记录核查情况，便于后续审计"></div>
+                <div class="form-item full">
+                  <label class="form-label req">U8凭证号</label>
+                  <div class="form-control">
+                    <input class="inp" style="width:100%" placeholder="如：记0012">
+                    <div class="form-note">格式：凭证类别（记）+ 流水号，如：记0012。</div>
                   </div>
                 </div>
               </div>
@@ -902,40 +837,33 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
 
         <!-- ==================== 后台—部门编码映射 ==================== -->
         <div v-if="activeMenu==='dept-mapping'">
-          <div class="card" style="margin-bottom:12px">
+          <div class="card">
             <div class="card-header">
               <span class="card-title">FNC后台 — 基础配置 / 结算机构→U8部门编码映射</span>
               <button class="btn btn-primary" @click="deptMappingDialog=true">＋ 新增映射</button>
             </div>
             <div class="card-body">
-              <div class="alert alert-info">⚙️ <b>方案二（已确认）</b>：U8无部门查询接口，由此处维护"结算机构 → U8部门编码"映射关系。生成整理费凭证时，系统根据所选申请的结算机构自动带入对应部门编码，财务可在凭证预览弹窗中手动修改，但不可为空。</div>
+              <div class="alert alert-info">⚙️ <b>方案二（已确认）：</b>U8无部门查询接口，由此处维护"结算机构 → U8部门编码"映射关系。生成整理费凭证时，系统根据结算机构自动带入部门编码，财务可在凭证预览弹窗中手动修改，但不可为空。</div>
               <div class="filter-bar">
-                <div class="filter-item"><label>结算机构</label><input class="inp" placeholder="搜索结算机构..."></div>
+                <div class="filter-item"><label>结算机构</label><input class="inp" placeholder="搜索..."></div>
                 <div class="filter-item"><label>状态</label><select class="sel"><option>全部</option><option>启用</option><option>停用</option></select></div>
                 <button class="btn btn-primary btn-sm">🔍 查询</button>
               </div>
-              <div class="table-wrap">
-                <table>
-                  <tr><th>结算机构</th><th>U8部门编码</th><th>U8部门名称</th><th>备注</th><th>状态</th><th>更新时间</th><th>操作</th></tr>
-                  <tr v-for="d in deptMappingData" :key="d.id">
-                    <td>{{d.org}}</td>
-                    <td><b>{{d.code}}</b></td>
-                    <td>{{d.name}}</td>
-                    <td style="color:#999">{{d.remark||'—'}}</td>
-                    <td><span class="tag" :class="d.active?'tag-green':'tag-gray'">{{d.active?'启用':'停用'}}</span></td>
-                    <td style="color:#999">{{d.updatedAt}}</td>
-                    <td>
-                      <button class="btn-link">编辑</button> |
-                      <button class="btn-link" :style="d.active?'color:#ff4d4f':''">{{d.active?'停用':'启用'}}</button>
-                    </td>
-                  </tr>
-                </table>
-              </div>
-              <div class="alert alert-warning" style="margin-top:12px">⚠️ 映射修改后仅对<b>新生成</b>的凭证生效，已创建的凭证不受影响。结算机构若无映射配置，生成整理费凭证时系统将提示"请先配置该机构的部门编码映射"并阻断。</div>
+              <table>
+                <tr><th>结算机构</th><th>U8部门编码</th><th>U8部门名称</th><th>备注</th><th>状态</th><th>更新时间</th><th>操作</th></tr>
+                <tr v-for="d in deptMappingData" :key="d.id">
+                  <td>{{d.org}}</td>
+                  <td><b>{{d.code}}</b></td>
+                  <td>{{d.name}}</td>
+                  <td style="color:#999">{{d.remark||'—'}}</td>
+                  <td><span class="tag" :class="d.active?'tag-green':'tag-gray'">{{d.active?'启用':'停用'}}</span></td>
+                  <td style="color:#999">{{d.updatedAt}}</td>
+                  <td><button class="btn-link">编辑</button> | <button class="btn-link" :style="d.active?'color:#ff4d4f':''">{{d.active?'停用':'启用'}}</button></td>
+                </tr>
+              </table>
             </div>
           </div>
-
-          <!-- Add/Edit Mapping Dialog -->
+          <!-- Mapping dialog -->
           <div class="modal-mask" v-if="deptMappingDialog" @click.self="deptMappingDialog=false">
             <div class="modal" style="max-width:480px">
               <div class="modal-header"><span class="modal-title">新增 / 编辑映射</span><span class="modal-close" @click="deptMappingDialog=false">✕</span></div>
@@ -944,35 +872,16 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                   <div class="form-item full">
                     <label class="form-label req">结算机构</label>
                     <div class="form-control">
-                      <select class="sel" style="width:100%">
-                        <option>请选择结算机构...</option>
-                        <option>番禺车管分所</option><option>天河车管</option><option>越秀车管</option>
-                        <option>中山车管</option><option>花都车管</option><option>南沙车管</option>
-                      </select>
+                      <select class="sel" style="width:100%"><option>请选择...</option><option>番禺车管分所</option><option>天河车管</option><option>越秀车管</option></select>
                     </div>
                   </div>
                 </div>
                 <div class="form-row">
-                  <div class="form-item">
-                    <label class="form-label req">U8部门编码</label>
-                    <div class="form-control">
-                      <input class="inp" style="width:100%" placeholder="如：7402" value="7402">
-                      <div class="form-note">请输入U8系统中对应的部门编码（纯数字）</div>
-                    </div>
-                  </div>
-                  <div class="form-item">
-                    <label class="form-label req">U8部门名称</label>
-                    <div class="form-control">
-                      <input class="inp" style="width:100%" placeholder="如：车客主文事业部（番禺）" value="车客主文事业部（番禺）">
-                      <div class="form-note">与U8系统保持一致，仅供显示核对</div>
-                    </div>
-                  </div>
+                  <div class="form-item"><label class="form-label req">U8部门编码</label><div class="form-control"><input class="inp" style="width:100%" placeholder="如：7402" value="7402"></div></div>
+                  <div class="form-item"><label class="form-label req">U8部门名称</label><div class="form-control"><input class="inp" style="width:100%" placeholder="如：车客主文事业部（番禺）" value="车客主文事业部（番禺）"></div></div>
                 </div>
                 <div class="form-row">
-                  <div class="form-item full">
-                    <label class="form-label">备注</label>
-                    <div class="form-control"><input class="inp" style="width:100%" placeholder="选填"></div>
-                  </div>
+                  <div class="form-item full"><label class="form-label">备注</label><div class="form-control"><input class="inp" style="width:100%" placeholder="选填"></div></div>
                 </div>
               </div>
               <div class="modal-footer">
@@ -981,7 +890,7 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
               </div>
             </div>
           </div>
-        </div><!-- /dept-mapping -->
+        </div>
 
         <!-- ==================== 审批流 ==================== -->
         <div v-if="activeMenu==='approval'">
@@ -990,11 +899,8 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
               <span style="font-size:13px;color:#666">视图切换：</span>
               <button class="btn" :class="approvalMode==='pc'?'btn-primary':'btn-default'" @click="approvalMode='pc'">🖥 PC端</button>
               <button class="btn" :class="approvalMode==='h5'?'btn-primary':'btn-default'" @click="approvalMode='h5'">📱 H5（企微移动端）</button>
-              <span v-if="approvalMode==='h5'" style="font-size:12px;color:#999">↓ 模拟企业微信"唯普汽车-审核"移动端样式</span>
             </div>
           </div>
-
-          <!-- PC View -->
           <div v-if="approvalMode==='pc'">
             <div class="card">
               <div class="card-header"><span class="card-title">批量结算付款审批 — 待审批列表（PC端）</span></div>
@@ -1004,31 +910,21 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                   <span class="tab">已审核</span>
                 </div>
                 <table>
-                  <tr><th>申请人</th><th>申请说明（月份+收款方）</th><th>含税合计（元）</th><th>提交时间</th><th>当前审批层级</th><th>操作</th></tr>
+                  <tr><th>申请人</th><th>申请说明</th><th>含税合计（元）</th><th>提交时间</th><th>当前审批层级</th><th>操作</th></tr>
                   <tr v-for="a in approvalListPC" :key="a.id">
-                    <td>
-                      <div style="font-weight:500">{{a.name}}</div>
-                      <div style="font-size:11px;color:#999">{{a.dept}}</div>
-                    </td>
+                    <td><div style="font-weight:500">{{a.name}}</div><div style="font-size:11px;color:#999">{{a.dept}}</div></td>
                     <td>{{a.summary}}</td>
                     <td class="amount">{{a.amount}}</td>
                     <td style="font-size:11px;color:#999">{{a.time}}</td>
                     <td><span class="tag tag-blue">{{a.level}}</span></td>
-                    <td>
-                      <button class="btn btn-primary btn-sm" @click="approvalDetailVisible=true">查看详情</button>
-                    </td>
+                    <td><button class="btn btn-primary btn-sm" @click="approvalDetailVisible=true">查看详情</button></td>
                   </tr>
                 </table>
               </div>
             </div>
-
-            <!-- PC Detail Panel -->
             <div class="panel-slide" v-if="approvalDetailVisible">
               <div class="panel-header">
-                <div>
-                  <div style="font-size:15px;font-weight:600">审批详情 — BS202601001</div>
-                  <div style="font-size:12px;color:#999;margin-top:2px">批量结算付款审批</div>
-                </div>
+                <div><div style="font-size:15px;font-weight:600">审批详情 — BS202601001</div><div style="font-size:12px;color:#999;margin-top:2px">批量结算付款审批</div></div>
                 <span class="modal-close" @click="approvalDetailVisible=false">✕</span>
               </div>
               <div class="panel-body">
@@ -1049,7 +945,6 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                   <div class="info-item"><div class="info-label">银行账号</div><div class="info-value">0200004209200xxxxxx</div></div>
                   <div class="info-item"><div class="info-label">付款种类</div><div class="info-value">对外支付</div></div>
                   <div class="info-item"><div class="info-label">付款金额</div><div class="info-value amount">¥ 1,060.00</div></div>
-                  <div class="info-item"><div class="info-label">付款项目说明</div><div class="info-value">广州区域1月服务费结算</div></div>
                 </div>
                 <hr class="sep">
                 <div class="section-title" style="margin-bottom:10px">明细摘要（3条）</div>
@@ -1063,7 +958,7 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="section-title" style="margin-bottom:10px">审批流程</div>
                 <div class="approval-flow">
                   <div class="flow-node"><div class="flow-left"><div class="flow-dot done"></div><div class="flow-line done"></div></div><div class="flow-content"><div class="flow-name">张三</div><div class="flow-role">发起申请</div><div class="flow-time">2026-01-15 10:23</div></div></div>
-                  <div class="flow-node"><div class="flow-left"><div class="flow-dot done"></div><div class="flow-line done"></div></div><div class="flow-content"><div class="flow-name">李四</div><div class="flow-role">部门负责人</div><div class="flow-time">2026-01-15 14:05</div><div class="flow-result"><span class="tag tag-green">通过</span> <span style="font-size:11px;color:#999">同意，请财务审核</span></div></div></div>
+                  <div class="flow-node"><div class="flow-left"><div class="flow-dot done"></div><div class="flow-line done"></div></div><div class="flow-content"><div class="flow-name">李四</div><div class="flow-role">部门负责人</div><div class="flow-time">2026-01-15 14:05</div><div class="flow-result"><span class="tag tag-green">通过</span></div></div></div>
                   <div class="flow-node"><div class="flow-left"><div class="flow-dot current"></div></div><div class="flow-content"><div class="flow-name">王财务</div><div class="flow-role">财务人员</div><div class="flow-result"><span class="tag tag-blue">待审批</span></div></div></div>
                 </div>
               </div>
@@ -1074,118 +969,29 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
               </div>
             </div>
           </div>
-
-          <!-- H5 View -->
-          <div v-if="approvalMode==='h5'" style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center">
-            <!-- Phone 1: List -->
-            <div>
-              <div style="text-align:center;margin-bottom:8px;font-size:12px;color:#999">待审批列表</div>
-              <div class="phone-frame">
-                <div class="phone-screen">
-                  <div class="h5-user-block">
-                    <div class="h5-avatar">👤</div>
-                    <div style="font-size:15px;font-weight:600">王财务</div>
-                  </div>
-                  <div class="h5-tabs" style="margin-top:-1px">
-                    <div class="h5-tab active">未审核</div>
-                    <div class="h5-tab">已审核</div>
-                  </div>
-                  <div style="padding:8px 8px 0">
-                    <div class="h5-approval-item" @click="h5DetailVisible=true" style="cursor:pointer">
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-                        <span style="font-size:12px;font-weight:600">批量结算付款审批</span>
-                        <span style="color:#1890ff;font-size:18px;font-weight:300">›</span>
-                      </div>
-                      <h4>张三（业务部）</h4>
-                      <div class="meta">2026年1月服务费，常有（天津）信息技术有限公司</div>
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-                        <span class="meta">2026-01-15 10:23</span>
-                        <span class="amount" style="font-size:14px;font-weight:700">¥ 1,060.00</span>
-                      </div>
-                    </div>
-                    <div class="h5-approval-item">
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-                        <span style="font-size:12px;font-weight:600">批量结算付款审批</span>
-                        <span style="color:#1890ff;font-size:18px;font-weight:300">›</span>
-                      </div>
-                      <h4>李明（运营部）</h4>
-                      <div class="meta">2026年1月过户费，好快帮（广州）科技有限公司</div>
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-                        <span class="meta">2026-01-16 09:15</span>
-                        <span class="amount" style="font-size:14px;font-weight:700">¥ 2,400.00</span>
-                      </div>
-                    </div>
-                    <div class="h5-approval-item">
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px">
-                        <span style="font-size:12px;font-weight:600">批量结算付款审批</span>
-                        <span style="color:#1890ff;font-size:18px;font-weight:300">›</span>
-                      </div>
-                      <h4>赵华（业务部）</h4>
-                      <div class="meta">2026年1月整理费，常有（天津）信息技术有限公司</div>
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-top:6px">
-                        <span class="meta">2026-01-16 14:40</span>
-                        <span class="amount" style="font-size:14px;font-weight:700">¥ 3,800.00</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Phone 2: Detail -->
-            <div>
-              <div style="text-align:center;margin-bottom:8px;font-size:12px;color:#999">审批详情</div>
-              <div class="phone-frame">
-                <div class="phone-screen">
-                  <div class="h5-topbar">
-                    <span class="h5-back">‹</span>
-                    <span>批量结算付款审批</span>
-                  </div>
-                  <div style="padding:12px">
-                    <div style="background:#fff;border-radius:6px;padding:12px;margin-bottom:8px">
-                      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
-                        <div style="font-size:13px;font-weight:600">张三（业务部）</div>
-                        <span class="tag tag-blue" style="font-size:11px">待财务审批</span>
-                      </div>
-                      <div style="font-size:12px;color:#666;display:grid;grid-template-columns:1fr 1fr;gap:6px">
-                        <div><span style="color:#999">申请时间</span><br>2026-01-15</div>
-                        <div><span style="color:#999">结算机构</span><br>番禺车管分所</div>
-                        <div><span style="color:#999">费用类型</span><br>服务商服务费</div>
-                        <div><span style="color:#999">付款月份</span><br>2026年1月</div>
-                        <div style="grid-column:span 2"><span style="color:#999">收款方</span><br>常有（天津）信息技术有限公司</div>
-                        <div style="grid-column:span 2"><span style="color:#999">含税合计</span><br><span class="amount" style="font-size:15px;font-weight:700">¥ 1,060.00</span></div>
-                      </div>
-                    </div>
-                    <div style="background:#fff;border-radius:6px;padding:12px;margin-bottom:8px">
-                      <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#333">付款信息</div>
-                      <div style="font-size:12px;color:#666;display:flex;flex-direction:column;gap:5px">
-                        <div style="display:flex;justify-content:space-between"><span style="color:#999">开户行</span><span>工商银行天津滨海新区支行</span></div>
-                        <div style="display:flex;justify-content:space-between"><span style="color:#999">账号</span><span>0200...xxxxxx</span></div>
-                        <div style="display:flex;justify-content:space-between"><span style="color:#999">付款种类</span><span>对外支付</span></div>
-                        <div style="display:flex;justify-content:space-between"><span style="color:#999">明细条数</span><span>3条</span></div>
-                      </div>
-                    </div>
-                    <div style="background:#fff;border-radius:6px;padding:12px;margin-bottom:8px">
-                      <div style="font-size:12px;font-weight:600;margin-bottom:8px;color:#333">审批流程</div>
-                      <div class="approval-flow" style="padding:0">
-                        <div class="flow-node"><div class="flow-left"><div class="flow-dot done" style="width:10px;height:10px"></div><div class="flow-line done"></div></div><div class="flow-content" style="padding-bottom:12px"><div class="flow-name" style="font-size:12px">张三</div><div class="flow-role">发起申请 · 2026-01-15 10:23</div></div></div>
-                        <div class="flow-node"><div class="flow-left"><div class="flow-dot done" style="width:10px;height:10px"></div><div class="flow-line done"></div></div><div class="flow-content" style="padding-bottom:12px"><div class="flow-name" style="font-size:12px">李四 <span class="tag tag-green" style="margin-left:4px;font-size:10px">通过</span></div><div class="flow-role">部门负责人 · 2026-01-15 14:05</div></div></div>
-                        <div class="flow-node"><div class="flow-left"><div class="flow-dot current" style="width:10px;height:10px"></div></div><div class="flow-content"><div class="flow-name" style="font-size:12px">王财务 <span class="tag tag-blue" style="margin-left:4px;font-size:10px">待审批</span></div><div class="flow-role">财务人员</div></div></div>
-                      </div>
-                    </div>
-                    <div style="display:flex;gap:8px;margin-top:4px">
-                      <button style="flex:1;padding:10px;background:#fff;border:1px solid #ff4d4f;color:#ff4d4f;border-radius:6px;font-size:14px;cursor:pointer">驳回</button>
-                      <button style="flex:2;padding:10px;background:#1890ff;border:none;color:#fff;border-radius:6px;font-size:14px;font-weight:500;cursor:pointer">通过</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div><!-- /approval -->
+        </div>
 
       </div><!-- /content -->
     </div><!-- /main -->
+  </div>
+</div>
+
+<!-- Lightbox -->
+<div class="lightbox-mask" v-if="lightboxVisible" @click="lightboxVisible=false">
+  <div class="lightbox-inner" @click.stop>
+    <button class="lightbox-close-btn" @click="lightboxVisible=false">✕</button>
+    <div style="padding:32px 48px;text-align:center;min-width:360px">
+      <div style="font-size:60px;margin-bottom:16px">{{lightboxIsImg?'🖼️':'📄'}}</div>
+      <div style="font-size:14px;color:#333;font-weight:500;margin-bottom:8px">{{lightboxFile}}</div>
+      <div style="font-size:12px;color:#999;margin-bottom:20px">（发票预览区 — 原型模拟）</div>
+      <div style="background:#f5f5f5;border-radius:4px;padding:40px 60px;color:#bbb;font-size:12px;border:1px dashed #d9d9d9">
+        发票内容<br>预览区域
+      </div>
+      <div style="margin-top:16px;display:flex;gap:8px;justify-content:center">
+        <button class="btn btn-default btn-sm" @click="lightboxVisible=false">关闭</button>
+        <button class="btn btn-primary btn-sm">下载</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1195,39 +1001,42 @@ new Vue({
   el: '#app',
   data() {
     return {
-      activeMenu: 'version',
-      menus: [
-        {key:'version', label:'版本更新', icon:'📋', group:'文档'},
-        {key:'prd', label:'需求说明', icon:'📖', group:'文档'},
-        {key:'bms', label:'BMS — 批量结算', icon:'📦', group:'BMS系统'},
-        {key:'fnc-settle', label:'FNC — 批量结算', icon:'💼', group:'FNC系统'},
-        {key:'fnc-voucher', label:'FNC — 凭证管理', icon:'🧾', group:'FNC系统'},
-        {key:'approval', label:'审批流（线下结算）', icon:'✅', group:'审批'},
-        {key:'dept-mapping', label:'后台—部门编码映射', icon:'⚙️', group:'后台配置'},
-      ],
+      activeMenu: 'bms',
+      filterChanged: false,
       // BMS
-      bmsView: 'list', // list / form / detail
+      bmsView: 'list',
       bmsStatusTab: 'all',
+      bmsCurrentDetail: null,
       bmsStatusTabs: [
-        {key:'all',label:'全部',count:0},
-        {key:'pending',label:'待提交',count:8},
-        {key:'dept',label:'待部门审批',count:3},
-        {key:'finance',label:'待财务审批',count:2},
-        {key:'leader',label:'待领导审批',count:1},
-        {key:'pay',label:'待支付',count:4},
-        {key:'reject',label:'已驳回',count:1},
-        {key:'discard',label:'已废弃',count:0},
+        {key:'all',    label:'全部',  count:0},
+        {key:'draft',  label:'待提交', count:2},
+        {key:'approval',label:'待审批',count:3},
+        {key:'pay',    label:'待支付', count:2},
+        {key:'rejected',label:'已驳回',count:2},
+        {key:'discarded',label:'已废弃',count:1},
       ],
-      bmsListData: [
-        {id:'BS202601001',org:'番禺车管分所',feeType:'服务商服务费',month:'2026-01',payee:'常有（天津）...',count:3,amount:'1,060.00',status:'待领导审批',tagClass:'tag-orange',time:'2026-01-15'},
-        {id:'BS202601002',org:'天河车管',feeType:'服务商服务费',month:'2026-01',payee:'常有（天津）...',count:6,amount:'2,400.00',status:'待支付',tagClass:'tag-green',time:'2026-01-16'},
-        {id:'BS202512003',org:'越秀车管',feeType:'代办过户费',month:'2025-12',payee:'好快帮（广州）...',count:9,amount:'3,800.00',status:'待财务审批',tagClass:'tag-blue',time:'2026-01-10'},
-        {id:'BS202512004',org:'番禺车管分所',feeType:'牌证费及邮寄费',month:'2025-12',payee:'常有（天津）...',count:4,amount:'560.00',status:'已驳回',tagClass:'tag-red',time:'2026-01-08'},
-        {id:'BS202601005',org:'天河车管',feeType:'服务商服务费',month:'2026-01',payee:'好快帮（广州）...',count:12,amount:'4,200.00',status:'待支付',tagClass:'tag-green',time:'2026-01-18'},
+      bmsAllData: [
+        // 待提交
+        {id:'BS202602001',title:'2026年2月服务费结算申请',org:'番禺车管分所',feeType:'服务商服务费',settleMonth:'2026-02',payee:'常有（天津）...',payeeFull:'常有（天津）信息技术有限公司',count:5,amount:'1,800.00',status:'draft',statusLabel:'待提交',tagClass:'tag-gray',applicant:'张三',time:'2026-02-10'},
+        {id:'BS202602002',title:'2026年2月过户费结算申请',org:'天河车管',feeType:'代办过户费',settleMonth:'2026-02',payee:'好快帮（广州）...',payeeFull:'好快帮（广州）科技有限公司',count:3,amount:'900.00',status:'draft',statusLabel:'待提交',tagClass:'tag-gray',applicant:'李明',time:'2026-02-11'},
+        // 待审批
+        {id:'BS202601001',title:'2026年1月服务费结算申请',org:'番禺车管分所',feeType:'服务商服务费',settleMonth:'2026-01',payee:'常有（天津）...',payeeFull:'常有（天津）信息技术有限公司',count:3,amount:'1,060.00',status:'approval',statusLabel:'待审批',approvalStage:'待领导审批',tagClass:'tag-orange',applicant:'张三',time:'2026-01-15'},
+        {id:'BS202512003',title:'2025年12月过户费结算申请',org:'越秀车管',feeType:'代办过户费',settleMonth:'2025-12',payee:'好快帮（广州）...',payeeFull:'好快帮（广州）科技有限公司',count:9,amount:'3,800.00',status:'approval',statusLabel:'待审批',approvalStage:'待财务审批',tagClass:'tag-orange',applicant:'赵华',time:'2026-01-10'},
+        {id:'BS202601007',title:'2026年1月牌证费结算申请',org:'花都车管',feeType:'牌证费及邮寄费',settleMonth:'2026-01',payee:'常有（天津）...',payeeFull:'常有（天津）信息技术有限公司',count:2,amount:'400.00',status:'approval',statusLabel:'待审批',approvalStage:'待部门审批',tagClass:'tag-orange',applicant:'王芳',time:'2026-01-18'},
+        // 待支付
+        {id:'BS202601002',title:'2026年1月服务费结算申请',org:'天河车管',feeType:'服务商服务费',settleMonth:'2026-01',payee:'常有（天津）...',payeeFull:'常有（天津）信息技术有限公司',count:6,amount:'2,400.00',status:'pay',statusLabel:'待支付',tagClass:'tag-green',applicant:'张三',time:'2026-01-16'},
+        {id:'BS202601005',title:'2026年1月服务费结算申请',org:'天河车管',feeType:'服务商服务费',settleMonth:'2026-01',payee:'好快帮（广州）...',payeeFull:'好快帮（广州）科技有限公司',count:12,amount:'4,200.00',status:'pay',statusLabel:'待支付',tagClass:'tag-green',applicant:'李明',time:'2026-01-18'},
+        // 已驳回
+        {id:'BS202512004',title:'2025年12月牌证费结算申请',org:'番禺车管分所',feeType:'牌证费及邮寄费',settleMonth:'2025-12',payee:'常有（天津）...',payeeFull:'常有（天津）信息技术有限公司',count:4,amount:'560.00',status:'rejected',statusLabel:'已驳回',tagClass:'tag-red',applicant:'张三',time:'2026-01-08',rejectReason:'发票与明细不符，请重新上传正确发票后再次提交。',rejectBy:'王财务',rejectTime:'2026-01-09 11:24'},
+        {id:'BS202601009',title:'2026年1月整理费结算申请',org:'南沙车管',feeType:'服务商服务费',settleMonth:'2026-01',payee:'好快帮（广州）...',payeeFull:'好快帮（广州）科技有限公司',count:7,amount:'2,100.00',status:'rejected',statusLabel:'已驳回',tagClass:'tag-red',applicant:'赵华',time:'2026-01-19',rejectReason:'付款信息有误，收款方与合同约定不符，请核实后重新提交。',rejectBy:'李四（部门负责人）',rejectTime:'2026-01-20 09:05'},
+        // 已废弃
+        {id:'BS202601008',title:'2026年1月整理费结算申请（已废弃）',org:'番禺车管分所',feeType:'服务商服务费',settleMonth:'2026-01',payee:'好快帮（广州）...',payeeFull:'好快帮（广州）科技有限公司',count:3,amount:'900.00',status:'discarded',statusLabel:'已废弃',tagClass:'tag-gray',applicant:'张三',time:'2026-01-12'},
       ],
       importDialog: false,
       importStep: 1,
-      showReturn: false,
+      showRejectDialog: false,
+      showReturnFnc: false,
+      showReturnVoucher: false,
       showBackfill: false,
       deptMappingDialog: false,
       deptMappingData: [
@@ -1238,51 +1047,95 @@ new Vue({
         {id:5,org:'花都车管',code:'7406',name:'车客主文事业部（花都）',remark:'',active:true,updatedAt:'2026-04-09'},
         {id:6,org:'南沙车管',code:'7407',name:'车客主文事业部（南沙）',remark:'暂停使用',active:false,updatedAt:'2026-03-15'},
       ],
-      // FNC
+      // FNC Voucher
       voucherNewStep: 0,
       voucherTab: 'all',
       voucherTabs: [
-        {key:'all',label:'全部',count:0},
-        {key:'pending',label:'待开具',count:3},
-        {key:'issuing',label:'开具中',count:0},
-        {key:'issued',label:'已开具',count:12},
-        {key:'failed',label:'开具失败',count:1},
-        {key:'timeout',label:'开具超时',count:1},
-        {key:'deleted',label:'已删除',count:0},
-        {key:'cancelled',label:'已取消',count:1},
+        {key:'all',     label:'全部',   count:0},
+        {key:'pending', label:'待开具', count:3},
+        {key:'issuing', label:'开具中', count:1},
+        {key:'issued',  label:'已开具', count:5},
+        {key:'failed',  label:'开具失败',count:2},
+        {key:'deleted', label:'已删除', count:1},
+        {key:'cancelled',label:'已取消',count:2},
       ],
-      voucherListData: [
-        {id:'V2026001',period:'2026-01',summary:'付1月服务费，常有（天津）...',fromBatch:true,date:'2026-01-20',user:'王财务',debit:'3,460.00',credit:'3,460.00',status:'待开具',tagClass:'tag-blue'},
-        {id:'V2025098',period:'2025-12',summary:'付12月过户费，好快帮（广州）...',fromBatch:true,date:'2026-01-05',user:'王财务',debit:'3,800.00',credit:'3,800.00',status:'已开具',tagClass:'tag-green'},
-        {id:'V2025097',period:'2025-12',summary:'记 (4:01-06)',fromBatch:false,date:'2025-12-28',user:'李会计',debit:'12,400.00',credit:'12,400.00',status:'已开具',tagClass:'tag-green'},
-        {id:'V2026002',period:'2026-01',summary:'付1月整理费，常有（天津）...',fromBatch:true,date:'2026-01-21',user:'王财务',debit:'2,100.00',credit:'2,100.00',status:'开具失败',tagClass:'tag-red'},
-        {id:'V2026003',period:'2026-01',summary:'付1月服务费，好快帮（广州）...',fromBatch:true,date:'2026-01-21',user:'王财务',debit:'4,200.00',credit:'4,200.00',status:'开具超时',tagClass:'tag-orange'},
+      voucherAllData: [
+        // 待开具
+        {id:'V2026001',period:'2026-01',summary:'付1月服务费，常有（天津）信息技术有限公司',subject:'64010102 服务费',date:'2026-01-20',user:'王财务',debit:'3,460.00',credit:'3,460.00',statusKey:'pending',status:'待开具',tagClass:'tag-blue',fromBatch:true},
+        {id:'V2026004',period:'2026-01',summary:'付1月过户费，好快帮（广州）科技有限公司',subject:'64010201 过户费',date:'2026-01-22',user:'王财务',debit:'3,800.00',credit:'3,800.00',statusKey:'pending',status:'待开具',tagClass:'tag-blue',fromBatch:true},
+        {id:'V2026007',period:'2026-02',summary:'付2月服务费，常有（天津）信息技术有限公司',subject:'64010102 服务费',date:'2026-02-15',user:'李会计',debit:'1,800.00',credit:'1,800.00',statusKey:'pending',status:'待开具',tagClass:'tag-blue',fromBatch:true},
+        // 开具中
+        {id:'V2026006',period:'2026-02',summary:'付2月过户费，好快帮（广州）科技有限公司',subject:'64010201 过户费',date:'2026-02-18',user:'王财务',debit:'2,700.00',credit:'2,700.00',statusKey:'issuing',status:'开具中',tagClass:'tag-cyan',fromBatch:true},
+        // 已开具
+        {id:'V2025098',period:'2025-12',summary:'付12月过户费，好快帮（广州）科技有限公司',subject:'64010201 过户费',date:'2026-01-05',user:'王财务',debit:'3,800.00',credit:'3,800.00',statusKey:'issued',status:'已开具',tagClass:'tag-green',fromBatch:true},
+        {id:'V2025097',period:'2025-12',summary:'记 (4:01-06)',subject:'10020101 银行存款',date:'2025-12-28',user:'李会计',debit:'12,400.00',credit:'12,400.00',statusKey:'issued',status:'已开具',tagClass:'tag-green',fromBatch:false},
+        {id:'V2025096',period:'2025-11',summary:'付11月服务费，常有（天津）信息技术有限公司',subject:'64010102 服务费',date:'2025-11-25',user:'王财务',debit:'4,100.00',credit:'4,100.00',statusKey:'issued',status:'已开具',tagClass:'tag-green',fromBatch:true},
+        {id:'V2025095',period:'2025-11',summary:'付11月整理费，常有（天津）信息技术有限公司',subject:'64011209 整理费',date:'2025-11-26',user:'王财务',debit:'2,800.00',credit:'2,800.00',statusKey:'issued',status:'已开具',tagClass:'tag-green',fromBatch:true},
+        {id:'V2025090',period:'2025-10',summary:'付10月服务费，好快帮（广州）科技有限公司',subject:'64010102 服务费',date:'2025-10-20',user:'李会计',debit:'3,200.00',credit:'3,200.00',statusKey:'issued',status:'已开具',tagClass:'tag-green',fromBatch:true},
+        // 开具失败
+        {id:'V2026002',period:'2026-01',summary:'付1月整理费，常有（天津）信息技术有限公司',subject:'64011209 整理费',date:'2026-01-21',user:'王财务',debit:'2,100.00',credit:'2,100.00',statusKey:'failed',status:'开具失败',tagClass:'tag-red',fromBatch:true,failReason:'2026-01-21 14:23 失败原因：会计期间早于开账日期'},
+        {id:'V2025085',period:'2025-09',summary:'付9月服务费，常有（天津）信息技术有限公司',subject:'64010102 服务费',date:'2025-09-25',user:'李会计',debit:'1,500.00',credit:'1,500.00',statusKey:'failed',status:'开具失败',tagClass:'tag-red',fromBatch:true,failReason:'2025-09-25 10:45 失败原因：账套未找到对应科目编码'},
+        // 已删除
+        {id:'V2025080',period:'2025-08',summary:'付8月服务费，好快帮（广州）科技有限公司',subject:'64010102 服务费',date:'2025-08-20',user:'王财务',debit:'2,600.00',credit:'2,600.00',statusKey:'deleted',status:'已删除',tagClass:'tag-gray',fromBatch:true},
+        // 已取消
+        {id:'V2025075',period:'2025-07',summary:'付7月过户费，好快帮（广州）科技有限公司',subject:'64010201 过户费',date:'2025-07-18',user:'王财务',debit:'3,100.00',credit:'3,100.00',statusKey:'cancelled',status:'已取消',tagClass:'tag-gray',fromBatch:true},
+        {id:'V2025074',period:'2025-07',summary:'付7月服务费，常有（天津）信息技术有限公司',subject:'64010102 服务费',date:'2025-07-19',user:'李会计',debit:'2,200.00',credit:'2,200.00',statusKey:'cancelled',status:'已取消',tagClass:'tag-gray',fromBatch:false},
       ],
       // Approval
       approvalMode: 'pc',
       approvalDetailVisible: false,
-      h5DetailVisible: false,
       approvalListPC: [
         {id:1,name:'张三',dept:'业务部',summary:'2026年1月服务费，常有（天津）信息技术有限公司',amount:'1,060.00',time:'2026-01-15 10:23',level:'财务审批（第二级）'},
         {id:2,name:'李明',dept:'运营部',summary:'2026年1月过户费，好快帮（广州）科技有限公司',amount:'2,400.00',time:'2026-01-16 09:15',level:'部门审批（第一级）'},
         {id:3,name:'赵华',dept:'业务部',summary:'2026年1月整理费，常有（天津）信息技术有限公司',amount:'3,800.00',time:'2026-01-16 14:40',level:'领导审批（第三级）'},
       ],
+      // Lightbox
+      lightboxVisible: false,
+      lightboxFile: '',
+      lightboxIsImg: false,
     }
   },
   computed: {
-    currentMenu() {
-      return this.menus.find(m => m.key === this.activeMenu) || {}
-    }
+    currentBreadcrumb() {
+      const map = {
+        'bms':          {group:'报销核算中心', label:'批量结算（BMS）'},
+        'fnc-settle':   {group:'报销核算中心', label:'批量结算（FNC）'},
+        'fnc-voucher':  {group:'财务管理',     label:'凭证管理'},
+        'approval':     {group:'审批',         label:'审批流预览'},
+        'dept-mapping': {group:'后台配置',     label:'部门编码映射'},
+      }
+      return map[this.activeMenu] || {}
+    },
+    filteredBmsList() {
+      if (this.bmsStatusTab === 'all') return this.bmsAllData
+      return this.bmsAllData.filter(r => r.status === this.bmsStatusTab)
+    },
+    filteredVoucherList() {
+      if (this.voucherTab === 'all') return this.voucherAllData
+      return this.voucherAllData.filter(v => v.statusKey === this.voucherTab)
+    },
   },
   methods: {
     navigate(key) {
       this.activeMenu = key
       this.bmsView = 'list'
+      this.bmsCurrentDetail = null
       this.voucherNewStep = 0
       this.approvalDetailVisible = false
       this.importDialog = false
-      this.showReturn = false
-    }
+      this.showRejectDialog = false
+      this.showReturnFnc = false
+      this.showReturnVoucher = false
+    },
+    openDetail(record) {
+      this.bmsCurrentDetail = record
+      this.bmsView = 'detail'
+    },
+    previewFile(name) {
+      this.lightboxFile = name
+      this.lightboxIsImg = /\.(jpg|jpeg|png|gif)$/i.test(name)
+      this.lightboxVisible = true
+    },
   }
 })
 </script>
