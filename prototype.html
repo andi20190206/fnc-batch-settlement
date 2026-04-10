@@ -974,9 +974,8 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
       </div><!-- /content -->
     </div><!-- /main -->
   </div>
-</div>
 
-<!-- Lightbox -->
+  <!-- Lightbox（必须在 #app 内，否则 Vue 无法渲染） -->
 <div class="lightbox-mask" v-if="lightboxVisible" @click="lightboxVisible=false">
   <div class="lightbox-inner" @click.stop>
     <button class="lightbox-close-btn" @click="lightboxVisible=false">✕</button>
@@ -993,7 +992,8 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
       </div>
     </div>
   </div>
-</div>
+</div><!-- /lightbox-mask -->
+</div><!-- /#app -->
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.min.js"></script>
 <script>
