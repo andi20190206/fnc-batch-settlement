@@ -170,6 +170,19 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
 .amount{color:#f5222d;font-weight:600}
 /* Entry table */
 .entry-table th{background:#f0f7ff;color:#1890ff}
+/* Toast */
+.toast{position:fixed;top:64px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.72);color:#fff;padding:8px 22px;border-radius:20px;font-size:13px;z-index:3000;pointer-events:none;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+/* Mock invoice in lightbox */
+.inv-wrap{border:2px solid #c00;border-radius:2px;padding:12px 14px;background:#fff;font-size:11px;text-align:left;min-width:540px}
+.inv-title{text-align:center;font-size:15px;font-weight:700;letter-spacing:4px;color:#c00;margin-bottom:4px}
+.inv-subtitle{text-align:center;font-size:10px;color:#666;margin-bottom:8px}
+.inv-row{display:flex;justify-content:space-between;font-size:10px;color:#333;border-bottom:1px solid #eee;padding-bottom:4px;margin-bottom:4px}
+.inv-table{width:100%;border-collapse:collapse;font-size:10px;margin-top:0;border:1px solid #aaa}
+.inv-table th,.inv-table td{padding:3px 5px;border:1px solid #bbb;text-align:left}
+.inv-table th{background:#f0f7ff;font-weight:500}
+.inv-section-label{writing-mode:vertical-rl;letter-spacing:2px;font-weight:600;padding:4px 6px;font-size:10px}
+.inv-total-bar{display:flex;align-items:center;padding:5px 6px;border:1px solid #aaa;border-top:none;background:#fffbe6;font-size:10px}
+.inv-footer{display:flex;justify-content:space-between;padding-top:6px;font-size:10px;color:#555;border-top:1px dashed #ddd;margin-top:6px}
 /* Stats */
 .stats-row{display:flex;gap:12px;margin-bottom:16px}
 .stat-card{flex:1;background:#fff;border:1px solid #e8e8e8;border-radius:4px;padding:14px;text-align:center}
@@ -241,7 +254,7 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="form-item">
                   <label class="form-label req">付款月份</label>
                   <div class="form-control">
-                    <select class="sel" style="width:100%">
+                    <select class="sel" style="width:100%" v-model="formMonth">
                       <option>2026年1月</option><option>2026年2月</option><option>2026年3月</option>
                     </select>
                   </div>
@@ -252,16 +265,17 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="form-item">
                   <label class="form-label req">付款方名称</label>
                   <div class="form-control">
-                    <select class="sel" style="width:100%">
+                    <select class="sel" style="width:100%" v-model="formPayer">
                       <option value="">请选择付款方...</option>
-                      <option value="weipu" selected>唯普汽车科技股份有限公司</option>
+                      <option value="weipu">唯普汽车科技股份有限公司</option>
+                      <option value="weipuyun">唯普云市场经营管理（广州）有限公司</option>
                     </select>
                   </div>
                 </div>
                 <div class="form-item">
                   <label class="form-label">付款银行名称</label>
                   <div class="form-control">
-                    <input class="inp" style="width:100%;background:#f5f5f5" readonly value="中国工商银行广州市第一支行">
+                    <input class="inp" style="width:100%;background:#f5f5f5" readonly :value="formPayerBank">
                     <div class="form-note">根据付款方自动带入</div>
                   </div>
                 </div>
@@ -270,7 +284,7 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="form-item">
                   <label class="form-label">付款银行账号</label>
                   <div class="form-control">
-                    <input class="inp" style="width:100%;background:#f5f5f5" readonly value="3602000109201420459">
+                    <input class="inp" style="width:100%;background:#f5f5f5" readonly :value="formPayerAccount">
                     <div class="form-note">根据付款方自动带入</div>
                   </div>
                 </div>
@@ -281,7 +295,7 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="form-item">
                   <label class="form-label req">收款方名称</label>
                   <div class="form-control">
-                    <input class="inp" style="width:100%" placeholder="请输入收款方名称" value="常有（天津）信息技术有限公司">
+                    <input class="inp" style="width:100%" placeholder="请输入收款方名称" v-model="formPayee">
                   </div>
                 </div>
                 <div class="form-item">
@@ -310,20 +324,24 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 <div class="form-item full">
                   <label class="form-label">付款摘要</label>
                   <div class="form-control">
-                    <input class="inp" style="width:100%;background:#f5f5f5" readonly value="付2026年1月，常有（天津）信息技术有限公司">
-                    <div class="form-note">自动生成：付"付款月份"+"收款方名称"</div>
+                    <input class="inp" style="width:100%;background:#f5f5f5" readonly :value="formPaymentSummary">
+                    <div class="form-note">自动生成：付"月份（不含年份）"＋"收款方名称"，例：付1月，常有（天津）信息技术有限公司</div>
                   </div>
                 </div>
               </div>
               <div class="section-title" style="margin-bottom:14px;margin-top:4px">发票上传<span style="font-size:11px;color:#999;font-weight:400;margin-left:6px">（选填）</span></div>
-              <div class="upload-area" style="margin-bottom:8px">
+              <div class="upload-area" style="margin-bottom:8px;cursor:pointer" @click="$refs.formFileInput.click()" @dragover.prevent @drop.prevent="handleFormDrop">
                 <div class="upload-icon">📁</div>
                 <div>点击或拖拽上传发票（JPG / PNG / PDF，单文件≤10MB，最多5张）</div>
-                <div class="upload-hint">已上传 2 张</div>
+                <div class="upload-hint">已上传 {{formUploadedFiles.length}} 张</div>
+                <input type="file" ref="formFileInput" style="display:none" multiple accept=".jpg,.jpeg,.png,.pdf" @change="handleFormFileSelect">
               </div>
               <div class="file-list">
-                <span class="file-link">invoice_001.pdf <span style="color:#ff4d4f;margin-left:4px">✕</span></span>
-                <span class="file-link">invoice_002.jpg <span style="color:#ff4d4f;margin-left:4px">✕</span></span>
+                <span v-for="(f,i) in formUploadedFiles" :key="i" class="file-link" style="cursor:pointer">
+                  <a @click.prevent="previewFile(f)" style="color:inherit;text-decoration:none">{{f}}</a>
+                  <span style="color:#ff4d4f;margin-left:4px;cursor:pointer" @click.stop="formUploadedFiles.splice(i,1)" title="删除">✕</span>
+                </span>
+                <span v-if="formUploadedFiles.length===0" style="color:#bbb;font-size:12px">暂无已上传发票</span>
               </div>
               <div class="section-title" style="margin-bottom:10px;margin-top:20px">已选明细（4条）</div>
               <div class="table-wrap">
@@ -357,9 +375,9 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                 </table>
               </div>
               <div style="margin-top:16px;display:flex;gap:8px">
-                <button class="btn btn-primary">提交审批</button>
-                <button class="btn btn-default">保存草稿</button>
-                <button class="btn btn-default">继续添加车辆</button>
+                <button class="btn btn-primary" @click="submitApproval">提交审批</button>
+                <button class="btn btn-default" @click="saveDraft">保存草稿</button>
+                <button class="btn btn-default" @click="bmsView='list'">继续添加车辆</button>
               </div>
             </div>
           </div>
@@ -549,17 +567,17 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
             <div class="modal" style="max-width:520px">
               <div class="modal-header"><span class="modal-title">上传发票</span><span class="modal-close" @click="showUploadInvoice=false">✕</span></div>
               <div class="modal-body">
-                <div class="alert alert-warning">⚠️ BMS系统上传发票后<b>不可删除</b>，如需删除请联系财务人员（FNC端）处理。</div>
-                <div class="upload-area" style="margin-bottom:8px">
+                <div class="upload-area" style="margin-bottom:8px;cursor:pointer" @click="$refs.dialogFileInput.click()" @dragover.prevent @drop.prevent="handleDialogDrop">
                   <div class="upload-icon">📁</div>
                   <div>点击或拖拽上传发票（JPG / PNG / PDF，单文件≤10MB，最多5张）</div>
-                  <div class="upload-hint">已上传 2 张，还可上传 3 张</div>
+                  <div class="upload-hint">已上传 {{dialogUploadedFiles.length}} 张，还可上传 {{5-dialogUploadedFiles.length}} 张</div>
+                  <input type="file" ref="dialogFileInput" style="display:none" multiple accept=".jpg,.jpeg,.png,.pdf" @change="handleDialogFileSelect">
                 </div>
                 <div class="file-list">
-                  <span class="file-link">invoice_001.pdf</span>
-                  <span class="file-link">invoice_002.jpg</span>
+                  <a v-for="(f,i) in dialogUploadedFiles" :key="i" class="file-link" href="#" @click.prevent="previewFile(f)" title="点击预览">{{f}}</a>
+                  <span v-if="dialogUploadedFiles.length===0" style="color:#bbb;font-size:12px">暂无已上传发票</span>
                 </div>
-                <div class="form-note" style="margin-top:8px;color:#fa8c16">BMS端已上传文件不可删除，仅FNC财务端可删除发票。</div>
+                <div class="form-note" style="margin-top:10px;color:#fa8c16">已过审结算单，可新增发票上传，如删除发票请财务同事删除。</div>
               </div>
               <div class="modal-footer">
                 <button class="btn btn-default" @click="showUploadInvoice=false">关闭</button>
@@ -618,7 +636,7 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
                       <div class="info-item"><div class="info-label">开户行</div><div class="info-value">中国工商银行天津滨海新区支行</div></div>
                       <div class="info-item"><div class="info-label">银行账号</div><div class="info-value">0200004209200xxxxxx</div></div>
                       <div class="info-item"><div class="info-label">付款种类</div><div class="info-value">对外支付</div></div>
-                      <div class="info-item full"><div class="info-label">付款摘要</div><div class="info-value">付{{bmsCurrentDetail.settleMonth}}，{{bmsCurrentDetail.payeeFull||bmsCurrentDetail.payee}}</div></div>
+                      <div class="info-item full"><div class="info-label">付款摘要</div><div class="info-value">付{{formatMonth(bmsCurrentDetail.settleMonth)}}，{{bmsCurrentDetail.payeeFull||bmsCurrentDetail.payee}}</div></div>
                     </div>
                   </div>
                   <div style="width:220px;flex-shrink:0">
@@ -1269,18 +1287,119 @@ hr.sep{border:none;border-top:1px solid #f0f0f0;margin:12px 0}
     </div><!-- /main -->
   </div>
 
+  <!-- Toast 通知 -->
+  <div class="toast" v-if="toastMsg">{{toastMsg}}</div>
+
   <!-- Lightbox（必须在 #app 内，否则 Vue 无法渲染） -->
 <div class="lightbox-mask" v-if="lightboxVisible" @click="lightboxVisible=false">
   <div class="lightbox-inner" @click.stop>
     <button class="lightbox-close-btn" @click="lightboxVisible=false">✕</button>
-    <div style="padding:32px 48px;text-align:center;min-width:360px">
-      <div style="font-size:60px;margin-bottom:16px">{{lightboxIsImg?'🖼️':'📄'}}</div>
-      <div style="font-size:14px;color:#333;font-weight:500;margin-bottom:8px">{{lightboxFile}}</div>
-      <div style="font-size:12px;color:#999;margin-bottom:20px">（发票预览区 — 原型模拟）</div>
-      <div style="background:#f5f5f5;border-radius:4px;padding:40px 60px;color:#bbb;font-size:12px;border:1px dashed #d9d9d9">
-        发票内容<br>预览区域
+    <div style="padding:20px 28px;min-width:580px;max-width:780px;overflow-y:auto;max-height:86vh">
+      <div style="font-size:12px;color:#666;margin-bottom:10px;text-align:center">
+        <span style="font-weight:500;color:#333">{{lightboxFile}}</span>
+        <span style="margin-left:8px;font-size:11px;color:#aaa">（发票预览 — 原型模拟）</span>
       </div>
-      <div style="margin-top:16px;display:flex;gap:8px;justify-content:center">
+      <!-- 模拟增值税专用发票 -->
+      <div class="inv-wrap">
+        <div class="inv-title">广东增值税专用发票</div>
+        <div class="inv-subtitle">（存根联）</div>
+        <div class="inv-row">
+          <span>发票代码：4400199320</span>
+          <span>发票号码：00123456</span>
+          <span>开票日期：2026年01月15日</span>
+        </div>
+        <div class="inv-row" style="border-bottom:none;margin-bottom:0;padding-bottom:0">
+          <span>机器编号：00120000XXXX</span>
+          <span>校验码：1234 5678 9012 3456</span>
+        </div>
+        <!-- 购方 -->
+        <table class="inv-table" style="margin-top:6px">
+          <tr>
+            <td class="inv-section-label" style="color:#c00;background:#fff5f5;border-right:1px solid #bbb" rowspan="4">购<br>方<br>信<br>息</td>
+            <td style="width:60px;background:#fafafa;font-weight:500">名称</td>
+            <td colspan="2">唯普汽车科技股份有限公司</td>
+          </tr>
+          <tr>
+            <td style="background:#fafafa;font-weight:500">纳税人识别号</td>
+            <td colspan="2">91440101MA9YXXXX2T</td>
+          </tr>
+          <tr>
+            <td style="background:#fafafa;font-weight:500">地址、电话</td>
+            <td colspan="2">广州市天河区科韵路16号 &nbsp; 020-8888XXXX</td>
+          </tr>
+          <tr>
+            <td style="background:#fafafa;font-weight:500">开户行及账号</td>
+            <td colspan="2">中国工商银行广州市第一支行 &nbsp; 360200010920142XXXX</td>
+          </tr>
+        </table>
+        <!-- 明细 -->
+        <table class="inv-table" style="border-top:none">
+          <tr>
+            <th style="width:36%">货物或应税劳务、服务名称</th>
+            <th style="width:8%">规格型号</th>
+            <th style="width:5%">单位</th>
+            <th style="width:6%">数量</th>
+            <th style="width:10%">单价</th>
+            <th style="width:10%">金额</th>
+            <th style="width:6%">税率</th>
+            <th style="width:10%">税额</th>
+          </tr>
+          <tr>
+            <td>*服务费*车辆代办过户服务费</td>
+            <td style="text-align:center">—</td>
+            <td style="text-align:center">次</td>
+            <td style="text-align:center">3</td>
+            <td style="text-align:right">113.21</td>
+            <td style="text-align:right">339.62</td>
+            <td style="text-align:center">6%</td>
+            <td style="text-align:right">20.38</td>
+          </tr>
+          <tr style="background:#fafafa">
+            <td colspan="5" style="text-align:right;font-weight:600">合计</td>
+            <td style="text-align:right;font-weight:600">¥ 339.62</td>
+            <td></td>
+            <td style="text-align:right;font-weight:600">¥ 20.38</td>
+          </tr>
+        </table>
+        <!-- 价税合计 -->
+        <div class="inv-total-bar">
+          <span style="font-weight:600;margin-right:10px">价税合计（大写）：</span>
+          <span style="color:#c00;font-weight:700">叁佰陆拾元整</span>
+          <span style="margin-left:auto;font-weight:600">（小写）¥ <span style="color:#c00;font-size:12px">360.00</span></span>
+        </div>
+        <!-- 销方 -->
+        <table class="inv-table" style="border-top:none">
+          <tr>
+            <td class="inv-section-label" style="color:#060;background:#f0fff4;border-right:1px solid #bbb" rowspan="4">销<br>方<br>信<br>息</td>
+            <td style="width:60px;background:#fafafa;font-weight:500">名称</td>
+            <td colspan="2">常有（天津）信息技术有限公司</td>
+          </tr>
+          <tr>
+            <td style="background:#fafafa;font-weight:500">纳税人识别号</td>
+            <td colspan="2">91120116MA06XXXXXX</td>
+          </tr>
+          <tr>
+            <td style="background:#fafafa;font-weight:500">地址、电话</td>
+            <td colspan="2">天津市滨海新区XX街道XX号 &nbsp; 022-8888XXXX</td>
+          </tr>
+          <tr>
+            <td style="background:#fafafa;font-weight:500">开户行及账号</td>
+            <td colspan="2">中国工商银行天津滨海新区支行 &nbsp; 020000420920XXXXXXXX</td>
+          </tr>
+        </table>
+        <!-- 备注 -->
+        <div style="padding:4px 6px;border:1px solid #aaa;border-top:none;font-size:10px;color:#666">
+          备注：服务期间：2026年1月，结算明细详见附件
+        </div>
+        <!-- 开票人信息 -->
+        <div class="inv-footer">
+          <span>收款人：王财务</span>
+          <span>复核：李会计</span>
+          <span>开票人：赵某某</span>
+          <span style="color:#999">销售方（章）：[加盖公章]</span>
+        </div>
+      </div>
+      <div style="margin-top:14px;display:flex;gap:8px;justify-content:center">
         <button class="btn btn-default btn-sm" @click="lightboxVisible=false">关闭</button>
         <button class="btn btn-primary btn-sm">下载</button>
       </div>
@@ -1297,6 +1416,17 @@ new Vue({
     return {
       activeMenu: 'bms',
       filterChanged: false,
+      toastMsg: '',
+      // 填写申请表单 — 表单数据
+      formPayer: 'weipu',
+      formMonth: '2026年1月',
+      formPayee: '常有（天津）信息技术有限公司',
+      formUploadedFiles: ['invoice_001.pdf', 'invoice_002.jpg'],
+      dialogUploadedFiles: ['invoice_001.pdf', 'invoice_002.jpg'],
+      payerMap: {
+        'weipu':    {bank: '中国工商银行广州市第一支行', account: '3602000109201420459'},
+        'weipuyun': {bank: '招商银行广州科技园支行',    account: '120914101810408'}
+      },
       // BMS
       bmsView: 'list',
       bmsStatusTab: 'all',
@@ -1409,6 +1539,17 @@ new Vue({
     }
   },
   computed: {
+    formPayerBank() {
+      return this.formPayer && this.payerMap[this.formPayer] ? this.payerMap[this.formPayer].bank : ''
+    },
+    formPayerAccount() {
+      return this.formPayer && this.payerMap[this.formPayer] ? this.payerMap[this.formPayer].account : ''
+    },
+    formPaymentSummary() {
+      // 只取月份，去掉年份，例：'2026年1月' → '付1月，xxx'
+      const month = this.formMonth.replace(/^\d{4}年/, '')
+      return this.formPayee ? `付${month}，${this.formPayee}` : ''
+    },
     currentBreadcrumb() {
       const map = {
         'bms':          {group:'报销核算中心', label:'批量结算（BMS）'},
@@ -1429,6 +1570,50 @@ new Vue({
     },
   },
   methods: {
+    // 将结算月份格式化为"只显示月份"：'2026-01' → '1月'，'2026年1月' → '1月'
+    formatMonth(settleMonth) {
+      if (!settleMonth) return settleMonth
+      // 格式 '2026-01'
+      const m1 = String(settleMonth).match(/\d{4}-(\d{1,2})/)
+      if (m1) return `${parseInt(m1[1])}月`
+      // 格式 '2026年1月'
+      const m2 = String(settleMonth).match(/\d{4}年(\d{1,2}月)/)
+      if (m2) return m2[1]
+      return settleMonth
+    },
+    submitApproval() {
+      this.showToast('提交成功，申请已进入审批流程')
+      setTimeout(() => { this.bmsView = 'list' }, 800)
+    },
+    saveDraft() {
+      this.showToast('草稿已保存')
+    },
+    showToast(msg) {
+      this.toastMsg = msg
+      setTimeout(() => { this.toastMsg = '' }, 2500)
+    },
+    handleFormFileSelect(e) {
+      Array.from(e.target.files).forEach(f => {
+        if (this.formUploadedFiles.length < 5) this.formUploadedFiles.push(f.name)
+      })
+      e.target.value = ''
+    },
+    handleFormDrop(e) {
+      Array.from(e.dataTransfer.files).forEach(f => {
+        if (this.formUploadedFiles.length < 5) this.formUploadedFiles.push(f.name)
+      })
+    },
+    handleDialogFileSelect(e) {
+      Array.from(e.target.files).forEach(f => {
+        if (this.dialogUploadedFiles.length < 5) this.dialogUploadedFiles.push(f.name)
+      })
+      e.target.value = ''
+    },
+    handleDialogDrop(e) {
+      Array.from(e.dataTransfer.files).forEach(f => {
+        if (this.dialogUploadedFiles.length < 5) this.dialogUploadedFiles.push(f.name)
+      })
+    },
     navigate(key) {
       this.activeMenu = key
       this.bmsView = 'list'
